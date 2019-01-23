@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'indexController@index');
+Route::post('/createAMoster', 'MosterController@createAMoster');
 Route::post('/profil', 'indexController@GetYourUser')->name('user')->middleware("auth");;
 Route::post('/updateUserData', 'indexController@updateUserData')->name('user')->middleware("auth");;
 
