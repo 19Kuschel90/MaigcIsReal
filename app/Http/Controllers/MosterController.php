@@ -39,5 +39,11 @@ class MosterController extends Controller
         return Monster::random_int(0,2);
     }
 
+    public function getAMoster(Request $request)
+    {
+        
+     return  Monster::find($request->input().id);
+    }
+
 }
 
