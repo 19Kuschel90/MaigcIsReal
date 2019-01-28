@@ -57,31 +57,31 @@ created() {
         ////////////////////////////////////
           methods: {
               send(methode, url, data = null, toDoFUN = ()=>{}){
- var token = document.head.querySelector('meta[name="csrf-token"]');
-    console.log('token.content',token.content);
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-        axios({
-      method: methode,
-    //   method: 'post',
-      url: url,
-    //   url: '/hello',
-    data:data,
-     
-      validateStatus: (status) => {
-        return true; // I'm always returning true, you may want to do it depending on the status received
-      },
-    }).catch(error => {
-        console.log('error', error);
-    }).then(response => {
-        // this is now called!
-                                debugger;
-        this.userData["id"] = response.data.id;
-        this.userData["name"] = response.data.name;
-        this.userData["email"] = response.data.email;
-        console.log('response', response);
+                    var token = document.head.querySelector('meta[name="csrf-token"]');
+                        console.log('token.content',token.content);
+                        window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+                            axios({
+                        method: methode,
+                        //   method: 'post',
+                        url: url,
+                        //   url: '/hello',
+                        data:data,
+                        
+                        validateStatus: (status) => {
+                            return true; // I'm always returning true, you may want to do it depending on the status received
+                        },
+                        }).catch(error => {
+                            console.log('error', error);
+                        }).then(response => {
+                            // this is now called!
+                                                    debugger;
+                            this.userData["id"] = response.data.id;
+                            this.userData["name"] = response.data.name;
+                            this.userData["email"] = response.data.email;
+                            console.log('response', response);
 
-    });
-        toDoFUN();
+                        });
+                            toDoFUN();
               },
 
     editSawp() {

@@ -1,14 +1,20 @@
 <?php
 
+
+
 namespace App;
-
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
-class Moster extends Authenticatable
+use Illuminate\Database\Eloquent\Model;
+class Moster extends Model
 {
-    use Notifiable;
-
-
+    /**
+     * The attributes that are guarded from mass assignment.
+     *
+     * @var array
+     */
+    // protected $guarded = [];
+        protected $fillable = [
+    ];
+    protected $hidden = [
+    ];
+ 
 }

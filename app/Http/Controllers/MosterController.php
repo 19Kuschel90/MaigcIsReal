@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 
+namespace App\Http\Controllers;
+use App\Monster;
 use Illuminate\Http\Request;
-use App\User;
-use Illuminate\Support\Facades\Auth;
-
 class MosterController extends Controller
 {
 
@@ -41,8 +40,9 @@ class MosterController extends Controller
 
     public function getAMoster(Request $request)
     {
-        
-     return  Monster::find($request->input().id);
+       Monster::find(1);
+
+        return  "sdsd";
     }
 
 }

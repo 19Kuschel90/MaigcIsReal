@@ -17,19 +17,11 @@ Vue.use(VueRouter);
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-// Vue.component('profilEdit', require('./components/profilEdit.vue'));
-
-// Vue.component('profilEdit', require('./components/profilEdit.vue').default);
 const routes = [
     { path: '/', component: require('./components/index.vue').default },
-    { path: '/login', component: require('./components/index.vue').default }, // not work
-    { path: '/profil', component: require('./components/profil.vue').default }, // not work
-    // { path: '/singIn', component: require('./components/singIn.vue').default },
-    // { path: '/profil', component: require('./components/profil.vue').default },
-    // { path: '/chat', component: require('./components/chat.vue').default },
-    // { path: '/about', component: require('./components/about.vue').default },
+    { path: '/profil', component: require('./components/profil.vue').default },
+    { path: '/createAMoster', component: require('./components/Moster/createAMoster.vue').default }, // not work
+    { path: '/getAMoster', component: require('./components/Moster/ShowAMoster.vue').default }, // not work
 ];
 const router = new VueRouter({ routes });
 

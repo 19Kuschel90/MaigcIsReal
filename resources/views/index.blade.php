@@ -47,6 +47,9 @@
     <li class="nav-item">
       <router-link class="nav-link active text-dark" to="/">Home</router-link>
     </li>
+    <li class="nav-item">
+      <router-link class="nav-link active text-dark" to="/createAMoster">Create A Moster</router-link>
+    </li>
 
     <li class="nav-item">
         <!-- Authentication Links -->
