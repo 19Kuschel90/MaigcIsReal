@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
 
 
 namespace App\Http\Controllers;
-use App\Monster;
 use Illuminate\Http\Request;
+use App\Moster;
 class MosterController extends Controller
 {
 
@@ -40,8 +39,11 @@ class MosterController extends Controller
 
     public function getAMoster(Request $request)
     {
-       Monster::find(1);
+       $mosters = Monster::all();// "Class 'App\\Http\\Controllers\\Monster' not found",
 
+       foreach ($mosters as $moster) {
+           dd( $moster);
+       }
         return  "sdsd";
     }
 

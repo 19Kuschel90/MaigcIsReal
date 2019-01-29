@@ -13,7 +13,7 @@ class Moster extends Migration
      */
     public function up()
     {
-        Schema::create('Moster', function (Blueprint $table) {
+        Schema::create('moster', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->integer('AP');// Attack
@@ -31,6 +31,6 @@ class Moster extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Moster');
+        Schema::dropIfExists('moster');
     }
 }
