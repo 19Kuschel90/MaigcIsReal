@@ -14,9 +14,11 @@
 Route::get('/', 'indexController@index');
 Route::post('/createAMonster', 'MonsterController@createAMonster');
 Route::post('/getAMonster', 'MonsterController@getAMonster');
+Route::post('/getLastMonster', 'MonsterController@getLastMonster');
 Route::post('/profil', 'indexController@GetYourUser')->name('user')->middleware("auth");;
 Route::post('/updateUserData', 'indexController@updateUserData')->name('user')->middleware("auth");;
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware("auth");
+

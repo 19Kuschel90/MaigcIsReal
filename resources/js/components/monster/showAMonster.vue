@@ -39,8 +39,12 @@ import CmonsterNotEdit from './monsterNotEdit.vue';
             console.log('Component mounted showAMonster.')
         },
         created(){
+            if(!this.stopRun)
+            {
                 this.send('post','/getAMonster', {id: 1});
+            }
         },
+
          data() {
             return {
                 monster:{
@@ -54,9 +58,11 @@ import CmonsterNotEdit from './monsterNotEdit.vue';
                 edit: false,
                 monsterEdit: CmonsterEdit,
                 monsterNotEdit: CmonsterNotEdit,
+                intervalid1: () => {},
 
             };
         },
+        props: ["monster", "stopRun"],
         methods:{
              send(methode, url, data = null, toDoFUN = ()=>{}){
                  try {
@@ -101,7 +107,8 @@ import CmonsterNotEdit from './monsterNotEdit.vue';
         }else{
             this.edit = true;
         }
-    }
+    },
+
             },
 
         }

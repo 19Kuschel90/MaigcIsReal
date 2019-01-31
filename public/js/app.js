@@ -1763,6 +1763,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _monster_showAMonster_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./monster/showAMonster.vue */ "./resources/js/components/monster/showAMonster.vue");
 //
 //
 //
@@ -1779,9 +1780,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
+  },
+  data: function data() {
+    return {
+      updataTime: 3000,
+      showAMonster: _monster_showAMonster_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+      monsters: [],
+      stopRun: true
+    };
+  },
+  created: function created() {
+    this.send('post', '/getLastMonster');
+    this.updata();
+  },
+  methods: {
+    send: function send(methode, url) {
+      var _this = this;
+
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      var toDoFUN = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {};
+
+      try {
+        //  debugger;
+        var token = document.head.querySelector('meta[name="csrf-token"]');
+        console.log('token.content', token.content);
+        window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+        axios({
+          method: methode,
+          //   method: 'post',
+          url: url,
+          //   url: '/hello',
+          data: data,
+          validateStatus: function validateStatus(status) {
+            return true; // I'm always returning true, you may want to do it depending on the status received
+          }
+        }).catch(function (error) {
+          console.log('error', error);
+        }).then(function (response) {
+          // this is now called!
+          console.log('response', response);
+          _this.monsters = response.data.reverse();
+        });
+        toDoFUN();
+      } catch (error) {
+        console.error('Send Error: ', error);
+      }
+    },
+    updata: function updata() {
+      var _this2 = this;
+
+      this.intervalid1 = setInterval(function () {
+        _this2.send('post', '/getLastMonster');
+      }, this.updataTime);
+    }
   }
 });
 
@@ -1819,13 +1877,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
   },
   data: function data() {
     return {
-      Monster: {
+      monster: {
         name: '',
         imgName: '',
         AP: -1,
@@ -1834,6 +1893,46 @@ __webpack_require__.r(__webpack_exports__);
         SpwanWert: -1
       }
     };
+  },
+  methods: {
+    create: function create() {
+      this.send('post', '/createAMonster', this.monster);
+    },
+    send: function send(methode, url) {
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      var toDoFUN = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {};
+
+      try {
+        //  debugger;
+        var token = document.head.querySelector('meta[name="csrf-token"]');
+        console.log('token.content', token.content);
+        window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+        axios({
+          method: methode,
+          //   method: 'post',
+          url: url,
+          //   url: '/hello',
+          data: data,
+          validateStatus: function validateStatus(status) {
+            return true; // I'm always returning true, you may want to do it depending on the status received
+          }
+        }).catch(function (error) {
+          console.log('error', error);
+        }).then(function (response) {
+          // this is now called!
+          console.log('response', response); // this.monster["id"] = response.data.id;
+          // this.monster["name"] = response.data.name;
+          // this.monster["imgName"] = response.data.imgName;
+          // this.monster["AP"] = response.data.AP;
+          // this.monster["DP"] = response.data.DP;
+          // this.monster["Speed"] = response.data.Speed;
+          // this.monster["SpwanWert"] = response.data.SpwanWert;
+        });
+        toDoFUN();
+      } catch (error) {
+        console.error('Send Error: ', error);
+      }
+    }
   }
 });
 
@@ -1971,9 +2070,11 @@ __webpack_require__.r(__webpack_exports__);
     console.log('Component mounted showAMonster.');
   },
   created: function created() {
-    this.send('post', '/getAMonster', {
-      id: 1
-    });
+    if (!this.stopRun) {
+      this.send('post', '/getAMonster', {
+        id: 1
+      });
+    }
   },
   data: function data() {
     return {
@@ -1987,9 +2088,11 @@ __webpack_require__.r(__webpack_exports__);
       },
       edit: false,
       monsterEdit: _monsterEdit_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-      monsterNotEdit: _monsterNotEdit_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+      monsterNotEdit: _monsterNotEdit_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+      intervalid1: function intervalid1() {}
     };
   },
+  props: ["monster", "stopRun"],
   methods: {
     send: function send(methode, url) {
       var _this = this;
@@ -37054,24 +37157,42 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-8" },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._l(_vm.monsters, function(value) {
+            return _c(
+              "div",
+              [
+                _c(_vm.showAMonster, {
+                  tag: "component",
+                  attrs: { monster: value, stopRun: _vm.stopRun }
+                })
+              ],
+              1
+            )
+          })
+        ],
+        2
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Nix Mon")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v("\n                  hallo welt\n                ")
-            ])
-          ])
-        ])
+    return _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-header" }, [_vm._v("Nix Mon")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _vm._v("\n                  hallo welt\n                ")
       ])
     ])
   }
@@ -37114,17 +37235,17 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.Monster["name"],
-                      expression: "Monster['name']"
+                      value: _vm.monster["name"],
+                      expression: "monster['name']"
                     }
                   ],
-                  domProps: { value: _vm.Monster["name"] },
+                  domProps: { value: _vm.monster["name"] },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.Monster, "name", $event.target.value)
+                      _vm.$set(_vm.monster, "name", $event.target.value)
                     }
                   }
                 })
@@ -37137,17 +37258,17 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.Monster["imgName"],
-                      expression: "Monster['imgName']"
+                      value: _vm.monster["imgName"],
+                      expression: "monster['imgName']"
                     }
                   ],
-                  domProps: { value: _vm.Monster["imgName"] },
+                  domProps: { value: _vm.monster["imgName"] },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.Monster, "imgName", $event.target.value)
+                      _vm.$set(_vm.monster, "imgName", $event.target.value)
                     }
                   }
                 })
@@ -37160,17 +37281,17 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.Monster["AP"],
-                      expression: "Monster['AP']"
+                      value: _vm.monster["AP"],
+                      expression: "monster['AP']"
                     }
                   ],
-                  domProps: { value: _vm.Monster["AP"] },
+                  domProps: { value: _vm.monster["AP"] },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.Monster, "AP", $event.target.value)
+                      _vm.$set(_vm.monster, "AP", $event.target.value)
                     }
                   }
                 })
@@ -37183,17 +37304,17 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.Monster["DP"],
-                      expression: "Monster['DP']"
+                      value: _vm.monster["DP"],
+                      expression: "monster['DP']"
                     }
                   ],
-                  domProps: { value: _vm.Monster["DP"] },
+                  domProps: { value: _vm.monster["DP"] },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.Monster, "DP", $event.target.value)
+                      _vm.$set(_vm.monster, "DP", $event.target.value)
                     }
                   }
                 })
@@ -37206,17 +37327,17 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.Monster["Speed"],
-                      expression: "Monster['Speed']"
+                      value: _vm.monster["Speed"],
+                      expression: "monster['Speed']"
                     }
                   ],
-                  domProps: { value: _vm.Monster["Speed"] },
+                  domProps: { value: _vm.monster["Speed"] },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.Monster, "Speed", $event.target.value)
+                      _vm.$set(_vm.monster, "Speed", $event.target.value)
                     }
                   }
                 })
@@ -37229,22 +37350,24 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.Monster["SpwanWert"],
-                      expression: "Monster['SpwanWert']"
+                      value: _vm.monster["SpwanWert"],
+                      expression: "monster['SpwanWert']"
                     }
                   ],
-                  domProps: { value: _vm.Monster["SpwanWert"] },
+                  domProps: { value: _vm.monster["SpwanWert"] },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.Monster, "SpwanWert", $event.target.value)
+                      _vm.$set(_vm.monster, "SpwanWert", $event.target.value)
                     }
                   }
                 })
               ])
-            ])
+            ]),
+            _vm._v(" "),
+            _c("button", { on: { click: _vm.create } }, [_vm._v("Create")])
           ])
         ])
       ])

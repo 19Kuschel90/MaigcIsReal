@@ -45,5 +45,16 @@ class MonsterController extends Controller
         return  $monster->getAllData();
     }
 
+    public function getLastMonster(Request $request)
+    {
+        // $request->validate( [
+        //     'number' => ['required', 'integer']
+        //     ]);
+            $monsters =   Monster::all();
+            // array_multisort($monsters-> , SORT_ASC, $monsters);
+            // natcasesort ( $monsters );
+            return $monsters;
+    }
+
 }
 
