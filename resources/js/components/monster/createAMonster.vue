@@ -7,12 +7,12 @@
 
                     <div class="card-body">
                         <div>
-                          <div>Name:<input v-model="Moster['name']"></div>
-                          <div>imgName:<input v-model="Moster['imgName']"></div>
-                          <div>AP:<input v-model="Moster['AP']"></div>
-                          <div>DP:<input v-model="Moster['DP']"></div>
-                          <div>Speed:<input v-model="Moster['Speed']"></div>
-                          <div>SpwanWert:<input v-model="Moster['SpwanWert']"></div>
+                          <div>Name:<input v-model="Monster['name']"></div>
+                          <div>imgName:<input v-model="Monster['imgName']"></div>
+                          <div>AP:<input v-model="Monster['AP']"></div>
+                          <div>DP:<input v-model="Monster['DP']"></div>
+                          <div>Speed:<input v-model="Monster['Speed']"></div>
+                          <div>SpwanWert:<input v-model="Monster['SpwanWert']"></div>
                         </div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
         },
          data() {
             return {
-                Moster:{
+                Monster:{
                     name: '',
                     imgName: '',
                     AP: -1,
@@ -36,7 +36,7 @@
                     Speed: -1,
                     SpwanWert: -1,
                 },
-        
+
             };
         },
     }

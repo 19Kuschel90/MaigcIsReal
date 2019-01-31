@@ -4,15 +4,15 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Profile</div>
- 
+
                     <div class="card-body">
                         <!-- <profilEdit userData="userData"></profilEdit> -->
                      <div v-if="edit">
                             <component :is="profilEdit" :user-data="userData"></component>
                                 <button v-on:click="editSawp">back</button>
-                                <button v-on:click='send("post","/updateUserData",userData, 
+                                <button v-on:click='send("post","/updateUserData",userData,
                                 () => {editSawp();
-                                
+
                                 }
                                  )'>Save</button>
                      </div>
@@ -20,14 +20,14 @@
                             <component :is="profilNotEdit" :user-data="userData"></component>
                         <button v-on:click="editSawp">Edit</button>
                      </div>
-                      
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
- 
+
 <script>
 import profilEdit from './profilEdit.vue';
 import profilNotEdit from './profilNotEdit.vue';
@@ -43,7 +43,7 @@ import profilNotEdit from './profilNotEdit.vue';
                     name: 'pls wait',
                     email: 'pls wait',
                     id: 'pls wait'
-                    
+
                 },
                 editSawp: this.editSawp,
               edit: false,
@@ -66,7 +66,7 @@ created() {
                         url: url,
                         //   url: '/hello',
                         data:data,
-                        
+
                         validateStatus: (status) => {
                             return true; // I'm always returning true, you may want to do it depending on the status received
                         },
@@ -94,5 +94,5 @@ created() {
     }
   }
     }
-    
+
 </script>

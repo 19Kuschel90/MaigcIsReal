@@ -19,9 +19,9 @@ Vue.use(VueRouter);
 
 const routes = [
     { path: '/', component: require('./components/index.vue').default },
-    { path: '/profil', component: require('./components/profil.vue').default },
-    { path: '/createAMoster', component: require('./components/Moster/createAMoster.vue').default }, // not work
-    { path: '/getAMoster', component: require('./components/Moster/ShowAMoster.vue').default }, // not work
+    { path: '/profil', component: require('./components/profil/profil.vue').default },
+    { path: '/createAMonster', component: require('./components/monster/createAMonster.vue').default }, // not work
+    { path: '/getAMonster', component: require('./components/monster/showAMonster.vue').default }, // not work
 ];
 const router = new VueRouter({ routes });
 

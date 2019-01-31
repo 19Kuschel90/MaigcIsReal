@@ -4,12 +4,13 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Moster;
-class MosterController extends Controller
+use App\Monster;
+
+class MonsterController extends Controller
 {
 
     // Create A new Moster
-    public function createAMoster(Request $request)
+    public function createAMonster(Request $request)
     {
         $request->validate( [
             'name' => ['required', 'string', 'max:255'],
@@ -19,7 +20,7 @@ class MosterController extends Controller
             'Speed' => ['required', 'integer'],
             'SpwanWert' => ['required', 'integer'],
             ]);
-        $data = $request->input();    
+        $data = $request->input();
        $moster =  Monster::create([
             'name' => $data['name'],
             'imgName' => $data['imgName'],
@@ -37,14 +38,11 @@ class MosterController extends Controller
         return Monster::random_int(0,2);
     }
 
-    public function getAMoster(Request $request)
+    public function getAMonster(Request $request)
     {
-       $mosters = Monster::all();// "Class 'App\\Http\\Controllers\\Monster' not found",
+        $monster = Monster::find($request->input()["id"]);// "Class 'App\\Http\\Controllers\\Monster' not found",
 
-       foreach ($mosters as $moster) {
-           dd( $moster);
-       }
-        return  "sdsd";
+        return  $monster->getAllData();
     }
 
 }

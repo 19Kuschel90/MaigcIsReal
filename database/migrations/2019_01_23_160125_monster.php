@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Moster extends Migration
+class Monster extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class Moster extends Migration
      */
     public function up()
     {
-        Schema::create('moster', function (Blueprint $table) {
+        Schema::create('monster', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('imgName');
             $table->integer('AP');// Attack
             $table->integer('DP');// Def
-            $table->integer('Speed');// Speed 
+            $table->integer('Speed');// Speed
             $table->integer('SpwanWert');// Spwan Wert
             $table->timestamps();
         });
@@ -31,6 +32,6 @@ class Moster extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('moster');
+        Schema::dropIfExists('monster');
     }
 }
