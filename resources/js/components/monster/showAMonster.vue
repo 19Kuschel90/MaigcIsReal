@@ -13,7 +13,6 @@
                                 <button v-on:click='send("post","/updateUserData",userData,
                                 () => {
                                     editSawp();
-
                                 }
                                  )'>Save</button>
                      </div>
@@ -33,6 +32,7 @@
 <script>
 import CmonsterEdit from './monsterEdit.vue';
 import CmonsterNotEdit from './monsterNotEdit.vue';
+import {CMonster} from './CMonster.js';
 
     export default {
         mounted() {
@@ -47,14 +47,7 @@ import CmonsterNotEdit from './monsterNotEdit.vue';
 
          data() {
             return {
-                monster:{
-                    name: '',
-                    imgName: '',
-                    AP: -1,
-                    DP: -1,
-                    Speed: -1,
-                    SpwanWert: -1,
-                },
+                monster: new CMonster(),
                 edit: false,
                 monsterEdit: CmonsterEdit,
                 monsterNotEdit: CmonsterNotEdit,
@@ -90,6 +83,7 @@ import CmonsterNotEdit from './monsterNotEdit.vue';
                             this.monster["imgName"] = response.data.imgName;
                             this.monster["AP"] = response.data.AP;
                             this.monster["DP"] = response.data.DP;
+                            this.monster["DP"] = response.data.HP;
                             this.monster["Speed"] = response.data.Speed;
                             this.monster["SpwanWert"] = response.data.SpwanWert;
                             console.log('response', response);

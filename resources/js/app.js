@@ -22,6 +22,7 @@ const routes = [
     { path: '/profil', component: require('./components/profil/profil.vue').default },
     { path: '/createAMonster', component: require('./components/monster/createAMonster.vue').default }, // not work
     { path: '/getAMonster', component: require('./components/monster/showAMonster.vue').default }, // not work
+    { path: '/warAMonster', component: require('./components/monster/warAMonster.vue').default }, // not work
 ];
 const router = new VueRouter({ routes });
 

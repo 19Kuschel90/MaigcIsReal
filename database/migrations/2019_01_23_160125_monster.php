@@ -19,6 +19,7 @@ class Monster extends Migration
             $table->string('imgName');
             $table->integer('AP');// Attack
             $table->integer('DP');// Def
+            $table->integer('HP');// Hit points
             $table->integer('Speed');// Speed
             $table->integer('SpwanWert');// Spwan Wert
             $table->timestamps();

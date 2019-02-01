@@ -1854,6 +1854,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CMonster_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CMonster.js */ "./resources/js/components/monster/CMonster.js");
 //
 //
 //
@@ -1878,20 +1879,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
   },
   data: function data() {
     return {
-      monster: {
-        name: '',
-        imgName: '',
-        AP: -1,
-        DP: -1,
-        Speed: -1,
-        SpwanWert: -1
-      }
+      monster: new _CMonster_js__WEBPACK_IMPORTED_MODULE_0__["CMonster"]()
     };
   },
   methods: {
@@ -1958,6 +1954,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('monsterEdit.');
@@ -1987,6 +1984,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -2031,6 +2029,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _monsterEdit_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./monsterEdit.vue */ "./resources/js/components/monster/monsterEdit.vue");
 /* harmony import */ var _monsterNotEdit_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./monsterNotEdit.vue */ "./resources/js/components/monster/monsterNotEdit.vue");
+/* harmony import */ var _CMonster_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CMonster.js */ "./resources/js/components/monster/CMonster.js");
 //
 //
 //
@@ -2062,7 +2061,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2078,14 +2077,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      monster: {
-        name: '',
-        imgName: '',
-        AP: -1,
-        DP: -1,
-        Speed: -1,
-        SpwanWert: -1
-      },
+      monster: new _CMonster_js__WEBPACK_IMPORTED_MODULE_2__["CMonster"](),
       edit: false,
       monsterEdit: _monsterEdit_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
       monsterNotEdit: _monsterNotEdit_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2122,6 +2114,7 @@ __webpack_require__.r(__webpack_exports__);
           _this.monster["imgName"] = response.data.imgName;
           _this.monster["AP"] = response.data.AP;
           _this.monster["DP"] = response.data.DP;
+          _this.monster["DP"] = response.data.HP;
           _this.monster["Speed"] = response.data.Speed;
           _this.monster["SpwanWert"] = response.data.SpwanWert;
           console.log('response', response);
@@ -2139,6 +2132,146 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/monster/warAMonster.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/monster/warAMonster.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CMonster_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CMonster.js */ "./resources/js/components/monster/CMonster.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    console.log('monsterEdit.');
+  },
+  data: function data() {
+    return {
+      monsterA: new _CMonster_js__WEBPACK_IMPORTED_MODULE_0__["CMonster"](),
+      monsterB: new _CMonster_js__WEBPACK_IMPORTED_MODULE_0__["CMonster"](),
+      Outputs: []
+    };
+  },
+  created: function created() {
+    this.send('post', '/ramdomSpawn', {
+      id: 1
+    }, function () {}, this.monsterA);
+    this.send('post', '/getAMonster', {
+      id: 3
+    }, function () {}, this.monsterB);
+  },
+  methods: {
+    war: function war() {
+      this.attack(this.monsterA.name, this.monsterA.AP, this.monsterA.DP, this.monsterA.HP, this.monsterA.Speed, this.monsterB.name, this.monsterB.AP, this.monsterB.DP, this.monsterB.HP, this.monsterB.Speed);
+    },
+    attack: function attack(_name, _AP, _DP, _HP, _Speed, _name2, _AP2, _DP2, _HP2, _Speed2) {
+      if (_Speed >= _Speed2) {
+        this.hit(_name, _name2, _AP, _DP2, _HP2);
+      } else {
+        this.hit(_name2, _name, _AP2, _DP, _HP);
+      }
+    },
+    hit: function hit(name, name2, AP, DP, HP) {
+      var damge = DP - AP;
+      HP -= damge;
+      this.addToOutput(name + "Damge: " + damge + " " + name2 + " HP: " + HP);
+
+      if (HP <= 0) {
+        this.addToOutput(name2 + " is lost" + " HP: " + HP);
+        alert(name + " Lose");
+      }
+    },
+    addToOutput: function addToOutput(text) {
+      this.Outputs.push(text);
+    },
+    send: function send(methode, url) {
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      var toDoFUN = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {};
+      var monster = arguments.length > 4 ? arguments[4] : undefined;
+
+      try {
+        var token = document.head.querySelector('meta[name="csrf-token"]');
+        console.log('token.content', token.content);
+        window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+        axios({
+          method: methode,
+          //   method: 'post',
+          url: url,
+          //   url: '/hello',
+          data: data,
+          validateStatus: function validateStatus(status) {
+            return true; // I'm always returning true, you may want to do it depending on the status received
+          }
+        }).catch(function (error) {
+          console.log('error', error);
+        }).then(function (response) {
+          // this is now called!
+          monster["id"] = response.data.id;
+          monster["name"] = response.data.name;
+          monster["imgName"] = response.data.imgName;
+          monster["AP"] = response.data.AP;
+          monster["DP"] = response.data.DP;
+          monster["DP"] = response.data.HP;
+          monster["Speed"] = response.data.Speed;
+          monster["SpwanWert"] = response.data.SpwanWert;
+          console.log('response', response);
+        });
+        toDoFUN();
+      } catch (error) {
+        console.error('Send Error: ', error);
+      }
+    }
+  },
+
+  /**
+   *   Monster:{
+              name: '',
+              imgName: '',
+              AP: -1,
+              DP: -1,
+              Speed: -1,
+              SpwanWert: -1,
+          },
+   */
+  props: ["monster"]
 });
 
 /***/ }),
@@ -37321,6 +37454,29 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", [
+                _vm._v("HP:"),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.monster["HP"],
+                      expression: "monster['HP']"
+                    }
+                  ],
+                  domProps: { value: _vm.monster["HP"] },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.monster, "HP", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", [
                 _vm._v("Speed:"),
                 _c("input", {
                   directives: [
@@ -37490,6 +37646,29 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", [
+      _vm._v("HP:"),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.monster["HP"],
+            expression: "monster['HP']"
+          }
+        ],
+        domProps: { value: _vm.monster["HP"] },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.monster, "HP", $event.target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", [
       _vm._v("Speed:"),
       _c("input", {
         directives: [
@@ -37568,6 +37747,8 @@ var render = function() {
     _c("p", [_vm._v("AP: " + _vm._s(_vm.monster.AP))]),
     _vm._v(" "),
     _c("p", [_vm._v("DP: " + _vm._s(_vm.monster.DP))]),
+    _vm._v(" "),
+    _c("p", [_vm._v("HP: " + _vm._s(_vm.monster.HP))]),
     _vm._v(" "),
     _c("p", [_vm._v("Speed: " + _vm._s(_vm.monster.Speed))]),
     _vm._v(" "),
@@ -37656,6 +37837,76 @@ var render = function() {
       ])
     ])
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/monster/warAMonster.vue?vue&type=template&id=5718b491&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/monster/warAMonster.vue?vue&type=template&id=5718b491& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", [
+        _c("p", [_vm._v("ID: " + _vm._s(_vm.monsterA.id) + " ")]),
+        _vm._v(" "),
+        _c("p", [_vm._v("Name: " + _vm._s(_vm.monsterA.name))]),
+        _vm._v(" "),
+        _c("p", [_vm._v("Img Name: " + _vm._s(_vm.monsterA.imgName))]),
+        _vm._v(" "),
+        _c("p", [_vm._v("AP: " + _vm._s(_vm.monsterA.AP))]),
+        _vm._v(" "),
+        _c("p", [_vm._v("DP: " + _vm._s(_vm.monsterA.DP))]),
+        _vm._v(" "),
+        _c("p", [_vm._v("HP: " + _vm._s(_vm.monsterA.HP))]),
+        _vm._v(" "),
+        _c("p", [_vm._v("Speed: " + _vm._s(_vm.monsterA.Speed))]),
+        _vm._v(" "),
+        _c("p", [_vm._v("SpwanWert: " + _vm._s(_vm.monsterA.SpwanWert))])
+      ]),
+      _vm._v("\n //////////////////////////////\n   "),
+      _c("button", { on: { click: _vm.war } }, [_vm._v("Lets War")]),
+      _vm._v("\n //////////////////////////////\n "),
+      _c("div", [
+        _c("p", [_vm._v("ID: " + _vm._s(_vm.monsterB.id) + " ")]),
+        _vm._v(" "),
+        _c("p", [_vm._v("Name: " + _vm._s(_vm.monsterB.name))]),
+        _vm._v(" "),
+        _c("p", [_vm._v("Img Name: " + _vm._s(_vm.monsterB.imgName))]),
+        _vm._v(" "),
+        _c("p", [_vm._v("AP: " + _vm._s(_vm.monsterB.AP))]),
+        _vm._v(" "),
+        _c("p", [_vm._v("DP: " + _vm._s(_vm.monsterB.DP))]),
+        _vm._v(" "),
+        _c("p", [_vm._v("HP: " + _vm._s(_vm.monsterB.HP))]),
+        _vm._v(" "),
+        _c("p", [_vm._v("Speed: " + _vm._s(_vm.monsterB.Speed))]),
+        _vm._v(" "),
+        _c("p", [_vm._v("SpwanWert: " + _vm._s(_vm.monsterB.SpwanWert))])
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.Outputs, function(value) {
+        return _c("div", [_vm._v("\n   " + _vm._s(value) + "\n ")])
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -51780,6 +52031,10 @@ var routes = [{
 {
   path: '/getAMonster',
   component: __webpack_require__(/*! ./components/monster/showAMonster.vue */ "./resources/js/components/monster/showAMonster.vue").default
+}, // not work
+{
+  path: '/warAMonster',
+  component: __webpack_require__(/*! ./components/monster/warAMonster.vue */ "./resources/js/components/monster/warAMonster.vue").default
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   routes: routes
@@ -51924,6 +52179,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_2ac2c897___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/monster/CMonster.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/monster/CMonster.js ***!
+  \*****************************************************/
+/*! exports provided: CMonster */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CMonster", function() { return CMonster; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var CMonster = function CMonster() {
+  _classCallCheck(this, CMonster);
+
+  this.id = -1;
+  this.name = '';
+  this.imgName = '';
+  this.AP = -1;
+  this.DP = -1;
+  this.HP = -1;
+  this.Speed = -1;
+  this.SpwanWert = -1;
+};
 
 /***/ }),
 
@@ -52198,6 +52480,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_showAMonster_vue_vue_type_template_id_9fea2494___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_showAMonster_vue_vue_type_template_id_9fea2494___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/monster/warAMonster.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/monster/warAMonster.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _warAMonster_vue_vue_type_template_id_5718b491___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./warAMonster.vue?vue&type=template&id=5718b491& */ "./resources/js/components/monster/warAMonster.vue?vue&type=template&id=5718b491&");
+/* harmony import */ var _warAMonster_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./warAMonster.vue?vue&type=script&lang=js& */ "./resources/js/components/monster/warAMonster.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _warAMonster_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _warAMonster_vue_vue_type_template_id_5718b491___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _warAMonster_vue_vue_type_template_id_5718b491___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/monster/warAMonster.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/monster/warAMonster.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/monster/warAMonster.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_warAMonster_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./warAMonster.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/monster/warAMonster.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_warAMonster_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/monster/warAMonster.vue?vue&type=template&id=5718b491&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/monster/warAMonster.vue?vue&type=template&id=5718b491& ***!
+  \****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_warAMonster_vue_vue_type_template_id_5718b491___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./warAMonster.vue?vue&type=template&id=5718b491& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/monster/warAMonster.vue?vue&type=template&id=5718b491&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_warAMonster_vue_vue_type_template_id_5718b491___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_warAMonster_vue_vue_type_template_id_5718b491___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

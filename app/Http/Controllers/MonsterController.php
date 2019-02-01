@@ -8,7 +8,6 @@ use App\Monster;
 
 class MonsterController extends Controller
 {
-
     // Create A new Moster
     public function createAMonster(Request $request)
     {
@@ -17,6 +16,7 @@ class MonsterController extends Controller
             'imgName' => ['required', 'string', 'max:255'],
             'AP' => ['required', 'integer'],
             'DP' => ['required', 'integer'],
+            'HP' => ['required', 'integer'],
             'Speed' => ['required', 'integer'],
             'SpwanWert' => ['required', 'integer'],
             ]);
@@ -26,6 +26,7 @@ class MonsterController extends Controller
             'imgName' => $data['imgName'],
             'AP' => $data['AP'],
             'DP' => $data['DP'],
+            'HP' => $data['HP'],
             'Speed' => $data['Speed'],
             'SpwanWert' => $data['SpwanWert'],
         ]);
@@ -33,9 +34,9 @@ class MonsterController extends Controller
     }
 
     // Return a Ramdom Moster
-    public function RamdomSpawn()
+    public function ramdomSpawn()
     {
-        return Monster::random_int(0,2);
+        return Monster::find(random_int(1,5));
     }
 
     public function getAMonster(Request $request)

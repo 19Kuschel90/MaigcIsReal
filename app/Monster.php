@@ -47,6 +47,10 @@ class Monster extends Model
     {
         return $this->SpwanWert;
     }
+    public function getHP()
+    {
+        return $this->HP;
+    }
     public function updateMonster(arrary $array):arrary
     {
         # code...

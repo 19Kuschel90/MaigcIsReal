@@ -19,6 +19,7 @@
 
 <script>
 import CshowAMonster from './monster/showAMonster.vue';
+
     export default {
         mounted() {
             console.log('Component mounted.');

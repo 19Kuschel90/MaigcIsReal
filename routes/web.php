@@ -14,6 +14,7 @@
 Route::get('/', 'indexController@index');
 Route::post('/createAMonster', 'MonsterController@createAMonster');
 Route::post('/getAMonster', 'MonsterController@getAMonster');
+Route::post('/ramdomSpawn', 'MonsterController@ramdomSpawn');
 Route::post('/getLastMonster', 'MonsterController@getLastMonster');
 Route::post('/profil', 'indexController@GetYourUser')->name('user')->middleware("auth");;
 Route::post('/updateUserData', 'indexController@updateUserData')->name('user')->middleware("auth");;

@@ -1,11 +1,12 @@
 <template>
   <div>
-     
+
                  <p>ID: {{ monster.id }} </p>
                 <p>Name: {{ monster.name }}</p>
                   <p>Img Name: {{ monster.imgName }}</p>
                   <p>AP: {{ monster.AP }}</p>
                   <p>DP: {{ monster.DP }}</p>
+                  <p>HP: {{ monster.HP }}</p>
                   <p>Speed: {{ monster.Speed }}</p>
                   <p>SpwanWert: {{ monster.SpwanWert }}</p>
   </div>
