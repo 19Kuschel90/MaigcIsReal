@@ -12,14 +12,22 @@
 */
 
 Route::get('/', 'indexController@index');
+Route::post('/iMLogin', 'UserMonsterController@iMLogin');
+Route::post('/createAUserMonster', 'UserMonsterController@createAUserMonster')->name('user')->middleware("auth")->middleware('verified');
 Route::post('/createAMonster', 'MonsterController@createAMonster');
+Route::post('/getLastMonster', 'MonsterController@getLastMonster');
 Route::post('/getAMonster', 'MonsterController@getAMonster');
 Route::post('/ramdomSpawn', 'MonsterController@ramdomSpawn');
-Route::post('/getLastMonster', 'MonsterController@getLastMonster');
-Route::post('/profil', 'indexController@GetYourUser')->name('user')->middleware("auth");;
-Route::post('/updateUserData', 'indexController@updateUserData')->name('user')->middleware("auth");;
-
-Auth::routes();
-
+Route::post('/getUserMonster', 'UserMonsterController@getUserMonster');
+Route::post('/profil', 'indexController@GetYourUser')->name('user')->middleware("auth")->middleware('verified');
+Route::post('/updateUserData', 'indexController@updateUserData')->name('user')->middleware("auth")->middleware('verified');
 Route::get('/home', 'HomeController@index')->name('home')->middleware("auth");
+
+
+
+Auth::routes(['verify' => true]);
+// Route::get('/Myprofile', function()
+// {
+//     return "this is profile";
+// })->middleware('verified');
 

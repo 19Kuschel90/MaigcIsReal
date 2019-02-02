@@ -1764,6 +1764,7 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _monster_showAMonster_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./monster/showAMonster.vue */ "./resources/js/components/monster/showAMonster.vue");
+/* harmony import */ var _axiosSend_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./axiosSend.js */ "./resources/js/components/axiosSend.js");
 //
 //
 //
@@ -1783,6 +1784,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -1797,42 +1799,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.send('post', '/getLastMonster');
+    var _this = this;
+
+    Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/getLastMonster', null, function (response) {
+      _this.monsters = response.data.reverse();
+    });
     this.updata();
   },
   methods: {
-    send: function send(methode, url) {
-      var _this = this;
-
-      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-      var toDoFUN = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {};
-
-      try {
-        //  debugger;
-        var token = document.head.querySelector('meta[name="csrf-token"]');
-        console.log('token.content', token.content);
-        window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-        axios({
-          method: methode,
-          //   method: 'post',
-          url: url,
-          //   url: '/hello',
-          data: data,
-          validateStatus: function validateStatus(status) {
-            return true; // I'm always returning true, you may want to do it depending on the status received
-          }
-        }).catch(function (error) {
-          console.log('error', error);
-        }).then(function (response) {
-          // this is now called!
-          console.log('response', response);
-          _this.monsters = response.data.reverse();
-        });
-        toDoFUN();
-      } catch (error) {
-        console.error('Send Error: ', error);
-      }
-    },
     updata: function updata() {
       var _this2 = this;
 
@@ -1855,6 +1829,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CMonster_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CMonster.js */ "./resources/js/components/monster/CMonster.js");
+/* harmony import */ var _axiosSend_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../axiosSend.js */ "./resources/js/components/axiosSend.js");
 //
 //
 //
@@ -1880,6 +1855,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -1892,42 +1868,74 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     create: function create() {
-      this.send('post', '/createAMonster', this.monster);
-    },
-    send: function send(methode, url) {
-      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-      var toDoFUN = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {};
+      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/createAMonster ', this.monster);
+    }
+  }
+});
 
-      try {
-        //  debugger;
-        var token = document.head.querySelector('meta[name="csrf-token"]');
-        console.log('token.content', token.content);
-        window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-        axios({
-          method: methode,
-          //   method: 'post',
-          url: url,
-          //   url: '/hello',
-          data: data,
-          validateStatus: function validateStatus(status) {
-            return true; // I'm always returning true, you may want to do it depending on the status received
-          }
-        }).catch(function (error) {
-          console.log('error', error);
-        }).then(function (response) {
-          // this is now called!
-          console.log('response', response); // this.monster["id"] = response.data.id;
-          // this.monster["name"] = response.data.name;
-          // this.monster["imgName"] = response.data.imgName;
-          // this.monster["AP"] = response.data.AP;
-          // this.monster["DP"] = response.data.DP;
-          // this.monster["Speed"] = response.data.Speed;
-          // this.monster["SpwanWert"] = response.data.SpwanWert;
-        });
-        toDoFUN();
-      } catch (error) {
-        console.error('Send Error: ', error);
-      }
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/monster/createAUserMonster.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/monster/createAUserMonster.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CMonster_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CMonster.js */ "./resources/js/components/monster/CMonster.js");
+/* harmony import */ var _axiosSend_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../axiosSend.js */ "./resources/js/components/axiosSend.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    console.log('Component mounted.');
+  },
+  data: function data() {
+    return {
+      monster: new _CMonster_js__WEBPACK_IMPORTED_MODULE_0__["CMonster"](),
+      login: 0
+    };
+  },
+  methods: {
+    create: function create() {
+      var _this = this;
+
+      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/iMLogin ', null, function (X) {
+        // in callback
+        _this.login = X.data;
+
+        if (_this.login == 1) {
+          Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/createAUserMonster ', _this.monster);
+        } else {
+          alert("pls login");
+        }
+      });
     }
   }
 });
@@ -2030,6 +2038,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _monsterEdit_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./monsterEdit.vue */ "./resources/js/components/monster/monsterEdit.vue");
 /* harmony import */ var _monsterNotEdit_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./monsterNotEdit.vue */ "./resources/js/components/monster/monsterNotEdit.vue");
 /* harmony import */ var _CMonster_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CMonster.js */ "./resources/js/components/monster/CMonster.js");
+/* harmony import */ var _axiosSend_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../axiosSend.js */ "./resources/js/components/axiosSend.js");
 //
 //
 //
@@ -2061,6 +2070,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -2069,9 +2079,20 @@ __webpack_require__.r(__webpack_exports__);
     console.log('Component mounted showAMonster.');
   },
   created: function created() {
+    var _this = this;
+
     if (!this.stopRun) {
       this.send('post', '/getAMonster', {
         id: 1
+      }, function (response) {
+        _this.monster["id"] = response.data.id;
+        _this.monster["name"] = response.data.name;
+        _this.monster["imgName"] = response.data.imgName;
+        _this.monster["AP"] = response.data.AP;
+        _this.monster["DP"] = response.data.DP;
+        _this.monster["DP"] = response.data.HP;
+        _this.monster["Speed"] = response.data.Speed;
+        _this.monster["SpwanWert"] = response.data.SpwanWert;
       });
     }
   },
@@ -2086,44 +2107,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: ["monster", "stopRun"],
   methods: {
-    send: function send(methode, url) {
-      var _this = this;
-
-      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-      var toDoFUN = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {};
-
-      try {
-        var token = document.head.querySelector('meta[name="csrf-token"]');
-        console.log('token.content', token.content);
-        window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-        axios({
-          method: methode,
-          //   method: 'post',
-          url: url,
-          //   url: '/hello',
-          data: data,
-          validateStatus: function validateStatus(status) {
-            return true; // I'm always returning true, you may want to do it depending on the status received
-          }
-        }).catch(function (error) {
-          console.log('error', error);
-        }).then(function (response) {
-          // this is now called!
-          _this.monster["id"] = response.data.id;
-          _this.monster["name"] = response.data.name;
-          _this.monster["imgName"] = response.data.imgName;
-          _this.monster["AP"] = response.data.AP;
-          _this.monster["DP"] = response.data.DP;
-          _this.monster["DP"] = response.data.HP;
-          _this.monster["Speed"] = response.data.Speed;
-          _this.monster["SpwanWert"] = response.data.SpwanWert;
-          console.log('response', response);
-        });
-        toDoFUN();
-      } catch (error) {
-        console.error('Send Error: ', error);
-      }
-    },
     editSawp: function editSawp() {
       if (this.edit) {
         this.edit = false;
@@ -2146,6 +2129,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CMonster_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CMonster.js */ "./resources/js/components/monster/CMonster.js");
+/* harmony import */ var _axiosSend_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../axiosSend.js */ "./resources/js/components/axiosSend.js");
 //
 //
 //
@@ -2179,6 +2163,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('monsterEdit.');
@@ -2191,12 +2176,30 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.send('post', '/ramdomSpawn', {
+    Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/ramdomSpawn', {
       id: 1
-    }, function () {}, this.monsterA);
-    this.send('post', '/getAMonster', {
+    }, function (response) {
+      monster["id"] = response.data.id;
+      monster["name"] = response.data.name;
+      monster["imgName"] = response.data.imgName;
+      monster["AP"] = response.data.AP;
+      monster["DP"] = response.data.DP;
+      monster["DP"] = response.data.HP;
+      monster["Speed"] = response.data.Speed;
+      monster["SpwanWert"] = response.data.SpwanWert;
+    }, this.monsterA);
+    Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/getAMonster', {
       id: 3
-    }, function () {}, this.monsterB);
+    }, function (response) {
+      monster["id"] = response.data.id;
+      monster["name"] = response.data.name;
+      monster["imgName"] = response.data.imgName;
+      monster["AP"] = response.data.AP;
+      monster["DP"] = response.data.DP;
+      monster["DP"] = response.data.HP;
+      monster["Speed"] = response.data.Speed;
+      monster["SpwanWert"] = response.data.SpwanWert;
+    }, this.monsterB);
   },
   methods: {
     war: function war() {
@@ -2221,43 +2224,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     addToOutput: function addToOutput(text) {
       this.Outputs.push(text);
-    },
-    send: function send(methode, url) {
-      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-      var toDoFUN = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {};
-      var monster = arguments.length > 4 ? arguments[4] : undefined;
-
-      try {
-        var token = document.head.querySelector('meta[name="csrf-token"]');
-        console.log('token.content', token.content);
-        window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-        axios({
-          method: methode,
-          //   method: 'post',
-          url: url,
-          //   url: '/hello',
-          data: data,
-          validateStatus: function validateStatus(status) {
-            return true; // I'm always returning true, you may want to do it depending on the status received
-          }
-        }).catch(function (error) {
-          console.log('error', error);
-        }).then(function (response) {
-          // this is now called!
-          monster["id"] = response.data.id;
-          monster["name"] = response.data.name;
-          monster["imgName"] = response.data.imgName;
-          monster["AP"] = response.data.AP;
-          monster["DP"] = response.data.DP;
-          monster["DP"] = response.data.HP;
-          monster["Speed"] = response.data.Speed;
-          monster["SpwanWert"] = response.data.SpwanWert;
-          console.log('response', response);
-        });
-        toDoFUN();
-      } catch (error) {
-        console.error('Send Error: ', error);
-      }
     }
   },
 
@@ -2287,6 +2253,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _profilEdit_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./profilEdit.vue */ "./resources/js/components/profil/profilEdit.vue");
 /* harmony import */ var _profilNotEdit_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./profilNotEdit.vue */ "./resources/js/components/profil/profilNotEdit.vue");
+/* harmony import */ var _axiosSend_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../axiosSend.js */ "./resources/js/components/axiosSend.js");
 //
 //
 //
@@ -2317,6 +2284,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2337,40 +2305,17 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
+    var _this = this;
+
     // For adding the token to axios header (add this only one time).
-    this.send('post', '/profil');
+    Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_2__["send"])('post', '/profil', null, function (response) {
+      _this.userData["id"] = response.data.id;
+      _this.userData["name"] = response.data.name;
+      _this.userData["email"] = response.data.email;
+    });
   },
   ////////////////////////////////////
   methods: {
-    send: function send(methode, url) {
-      var _this = this;
-
-      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-      var toDoFUN = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {};
-      var token = document.head.querySelector('meta[name="csrf-token"]');
-      console.log('token.content', token.content);
-      window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-      axios({
-        method: methode,
-        //   method: 'post',
-        url: url,
-        //   url: '/hello',
-        data: data,
-        validateStatus: function validateStatus(status) {
-          return true; // I'm always returning true, you may want to do it depending on the status received
-        }
-      }).catch(function (error) {
-        console.log('error', error);
-      }).then(function (response) {
-        // this is now called!
-        debugger;
-        _this.userData["id"] = response.data.id;
-        _this.userData["name"] = response.data.name;
-        _this.userData["email"] = response.data.email;
-        console.log('response', response);
-      });
-      toDoFUN();
-    },
     editSawp: function editSawp() {
       if (this.edit) {
         this.edit = false;
@@ -37537,6 +37482,184 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/monster/createAUserMonster.vue?vue&type=template&id=635b7e2c&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/monster/createAUserMonster.vue?vue&type=template&id=635b7e2c& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card card-default" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Example Component")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", [
+              _c("div", [
+                _vm._v("Name:"),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.monster["name"],
+                      expression: "monster['name']"
+                    }
+                  ],
+                  domProps: { value: _vm.monster["name"] },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.monster, "name", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v("imgName:"),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.monster["imgName"],
+                      expression: "monster['imgName']"
+                    }
+                  ],
+                  domProps: { value: _vm.monster["imgName"] },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.monster, "imgName", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v("AP:"),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.monster["AP"],
+                      expression: "monster['AP']"
+                    }
+                  ],
+                  domProps: { value: _vm.monster["AP"] },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.monster, "AP", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v("DP:"),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.monster["DP"],
+                      expression: "monster['DP']"
+                    }
+                  ],
+                  domProps: { value: _vm.monster["DP"] },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.monster, "DP", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v("HP:"),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.monster["HP"],
+                      expression: "monster['HP']"
+                    }
+                  ],
+                  domProps: { value: _vm.monster["HP"] },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.monster, "HP", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v("Speed:"),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.monster["Speed"],
+                      expression: "monster['Speed']"
+                    }
+                  ],
+                  domProps: { value: _vm.monster["Speed"] },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.monster, "Speed", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("button", { on: { click: _vm.create } }, [_vm._v("Create")])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/monster/monsterEdit.vue?vue&type=template&id=786e20d4&":
 /*!**********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/monster/monsterEdit.vue?vue&type=template&id=786e20d4& ***!
@@ -52027,12 +52150,13 @@ var routes = [{
 }, {
   path: '/createAMonster',
   component: __webpack_require__(/*! ./components/monster/createAMonster.vue */ "./resources/js/components/monster/createAMonster.vue").default
-}, // not work
-{
+}, {
+  path: '/createAUserMonster',
+  component: __webpack_require__(/*! ./components/monster/createAUserMonster.vue */ "./resources/js/components/monster/createAUserMonster.vue").default
+}, {
   path: '/getAMonster',
   component: __webpack_require__(/*! ./components/monster/showAMonster.vue */ "./resources/js/components/monster/showAMonster.vue").default
-}, // not work
-{
+}, {
   path: '/warAMonster',
   component: __webpack_require__(/*! ./components/monster/warAMonster.vue */ "./resources/js/components/monster/warAMonster.vue").default
 }];
@@ -52110,6 +52234,47 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/axiosSend.js":
+/*!**********************************************!*\
+  !*** ./resources/js/components/axiosSend.js ***!
+  \**********************************************/
+/*! exports provided: send */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "send", function() { return send; });
+function send(methode, url) {
+  var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  var callback = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {};
+
+  try {
+    //  debugger;
+    var token = document.head.querySelector('meta[name="csrf-token"]');
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    axios({
+      method: methode,
+      //   method: 'post',
+      url: url,
+      //   url: '/hello',
+      data: data,
+      validateStatus: function validateStatus(status) {
+        return true; // I'm always returning true, you may want to do it depending on the status received
+      }
+    }).catch(function (error) {
+      console.error('error', error);
+    }).then(function (response) {
+      // this is now called!
+      console.log('response', response);
+      callback(response);
+    });
+  } catch (error) {
+    console.error('Send Error: ', error);
+  }
+}
 
 /***/ }),
 
@@ -52199,6 +52364,7 @@ var CMonster = function CMonster() {
 
   this.id = -1;
   this.name = '';
+  this.name = '';
   this.imgName = '';
   this.AP = -1;
   this.DP = -1;
@@ -52273,6 +52439,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_createAMonster_vue_vue_type_template_id_20ecdb35___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_createAMonster_vue_vue_type_template_id_20ecdb35___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/monster/createAUserMonster.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/monster/createAUserMonster.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _createAUserMonster_vue_vue_type_template_id_635b7e2c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createAUserMonster.vue?vue&type=template&id=635b7e2c& */ "./resources/js/components/monster/createAUserMonster.vue?vue&type=template&id=635b7e2c&");
+/* harmony import */ var _createAUserMonster_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createAUserMonster.vue?vue&type=script&lang=js& */ "./resources/js/components/monster/createAUserMonster.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _createAUserMonster_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _createAUserMonster_vue_vue_type_template_id_635b7e2c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _createAUserMonster_vue_vue_type_template_id_635b7e2c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/monster/createAUserMonster.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/monster/createAUserMonster.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/monster/createAUserMonster.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_createAUserMonster_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./createAUserMonster.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/monster/createAUserMonster.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_createAUserMonster_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/monster/createAUserMonster.vue?vue&type=template&id=635b7e2c&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/monster/createAUserMonster.vue?vue&type=template&id=635b7e2c& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_createAUserMonster_vue_vue_type_template_id_635b7e2c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./createAUserMonster.vue?vue&type=template&id=635b7e2c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/monster/createAUserMonster.vue?vue&type=template&id=635b7e2c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_createAUserMonster_vue_vue_type_template_id_635b7e2c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_createAUserMonster_vue_vue_type_template_id_635b7e2c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

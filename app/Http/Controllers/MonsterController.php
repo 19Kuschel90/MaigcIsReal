@@ -33,6 +33,10 @@ class MonsterController extends Controller
         return  $moster;
     }
 
+
+
+
+
     // Return a Ramdom Moster
     public function ramdomSpawn()
     {
@@ -41,6 +45,9 @@ class MonsterController extends Controller
 
     public function getAMonster(Request $request)
     {
+        $request->validate( [
+            'id' => ['required', 'integer'],
+        ]);
         $monster = Monster::find($request->input()["id"]);// "Class 'App\\Http\\Controllers\\Monster' not found",
 
         return  $monster->getAllData();

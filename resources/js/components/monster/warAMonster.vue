@@ -32,6 +32,8 @@
 
 <script>
 import {CMonster} from './CMonster.js';
+import {send} from './../axiosSend.js';
+
     export default {
         mounted() {
             console.log('monsterEdit.');
@@ -45,8 +47,26 @@ import {CMonster} from './CMonster.js';
             };
         },
         created(){
-            this.send('post','/ramdomSpawn', {id: 1}, () =>{}, this.monsterA );
-            this.send('post','/getAMonster', {id: 3}, () =>{}, this.monsterB );
+            send('post','/ramdomSpawn', {id: 1}, (response) =>{
+                 monster["id"] = response.data.id;
+                            monster["name"] = response.data.name;
+                            monster["imgName"] = response.data.imgName;
+                            monster["AP"] = response.data.AP;
+                            monster["DP"] = response.data.DP;
+                            monster["DP"] = response.data.HP;
+                            monster["Speed"] = response.data.Speed;
+                            monster["SpwanWert"] = response.data.SpwanWert;
+            }, this.monsterA);
+            send('post','/getAMonster', {id: 3}, (response) =>{
+                  monster["id"] = response.data.id;
+                            monster["name"] = response.data.name;
+                            monster["imgName"] = response.data.imgName;
+                            monster["AP"] = response.data.AP;
+                            monster["DP"] = response.data.DP;
+                            monster["DP"] = response.data.HP;
+                            monster["Speed"] = response.data.Speed;
+                            monster["SpwanWert"] = response.data.SpwanWert;
+            }, this.monsterB );
         },
         methods:{
             war(){
@@ -83,43 +103,7 @@ import {CMonster} from './CMonster.js';
             addToOutput(text){
                 this.Outputs.push(text);
             },
-               send(methode, url, data = null, toDoFUN = ()=>{}, monster){
-                 try {
 
-                     var token = document.head.querySelector('meta[name="csrf-token"]');
-                        console.log('token.content',token.content);
-                        window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-                            axios({
-                        method: methode,
-                        //   method: 'post',
-                        url: url,
-                        //   url: '/hello',
-                        data:data,
-
-                        validateStatus: (status) => {
-                            return true; // I'm always returning true, you may want to do it depending on the status received
-                        },
-                        }).catch(error => {
-                            console.log('error', error);
-                        }).then(response => {
-                            // this is now called!
-
-                            monster["id"] = response.data.id;
-                            monster["name"] = response.data.name;
-                            monster["imgName"] = response.data.imgName;
-                            monster["AP"] = response.data.AP;
-                            monster["DP"] = response.data.DP;
-                            monster["DP"] = response.data.HP;
-                            monster["Speed"] = response.data.Speed;
-                            monster["SpwanWert"] = response.data.SpwanWert;
-                            console.log('response', response);
-
-                        });
-                            toDoFUN();
-                            } catch (error) {
-                                console.error('Send Error: ', error);
-                        }
-              },
 
         },
         /**

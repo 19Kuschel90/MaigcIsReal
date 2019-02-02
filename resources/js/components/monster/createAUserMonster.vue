@@ -13,7 +13,6 @@
                           <div>DP:<input v-model="monster['DP']"></div>
                           <div>HP:<input v-model="monster['HP']"></div>
                           <div>Speed:<input v-model="monster['Speed']"></div>
-                          <div>SpwanWert:<input v-model="monster['SpwanWert']"></div>
                         </div>
                         <button v-on:click="create">Create</button>
                     </div>
@@ -34,13 +33,23 @@ import {send} from './../axiosSend.js';
          data() {
             return {
              monster: new CMonster(),
+             login: 0,
             };
         },
           methods:{
               create(){
-                 send('post','/createAMonster ',  this.monster );
-              },
 
+                        send('post','/iMLogin ',  null, (X) =>{// in callback
+                            this.login = X.data;
+                            if(this.login == 1){
+                                send('post','/createAUserMonster ',  this.monster );
+                            }else{
+                                alert("pls login");
+                            }
+
+                        } );
+
+              },
 
           }
     }

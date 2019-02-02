@@ -2,6 +2,7 @@ export class CMonster {
     constructor() {
         this.id = -1;
         this.name = '';
+        this.name = '';
         this.imgName = '';
         this.AP = -1;
         this.DP = -1;
