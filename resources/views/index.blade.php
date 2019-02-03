@@ -39,65 +39,16 @@
 </head>
 <body>
 <div id="app" v-cloak   >
-<nav>
-<ul class="nav justify-content-end  backblue1 ">
-      <li>
-      <div><router-link to="/"><img src="{{asset('img/logoEye.svg')}}" alt="logo" class="logoSize"></router-link> </div>
-</li>
-    <li class="nav-item">
-      <router-link class="nav-link active text-dark" to="/">Home</router-link>
-    </li>
-    <li class="nav-item">
-      <router-link class="nav-link active text-dark" to="/createAMoster">Create A Moster</router-link>
-    </li>
 
-    <li class="nav-item">
-        <!-- Authentication Links -->
-        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                        <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <router-link class="nav-link active text-dark" to="/profil" >profil</router-link>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-   
-     
-    </li>
-    <li class="nav-item">
-      <router-link class="nav-link disabled text-dark" to="/chat">chat</router-link>
-    </li>
-</ul>
-</nav>
+    <nav-component></nav-component>
 <main>
     <router-view class="alert"></router-view>
 </main>
 <footer></footer>
     </div>
-<script src="{{mix('js/app.js')}}"></script>
+    <script src="{{mix('js/app.js')}}"></script>
+    <script src='js/gl-matrix.js'></script>
     <script>
-        console.log('asd');
         if ('serviceWorker' in navigator) {  
 
             navigator.serviceWorker.register('/sw.js')

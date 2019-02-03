@@ -38,8 +38,11 @@ import {send} from './../axiosSend.js';
         },
           methods:{
               create(){
-                 send('post','/createAMonster ',  this.monster );
+                 send('post','/createAMonster ',  this.monster, (response) => {
+                    router.push({ path: `/getAMonster/${3}` });
+                 });
               },
+
 
 
           }

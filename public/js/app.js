@@ -1792,10 +1792,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      updataTime: 3000,
+      updataTime: 15000,
       showAMonster: _monster_showAMonster_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
       monsters: [],
-      stopRun: true
+      stopRun: true,
+      othis: this
     };
   },
   created: function created() {
@@ -1804,14 +1805,12 @@ __webpack_require__.r(__webpack_exports__);
     Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/getLastMonster', null, function (response) {
       _this.monsters = response.data.reverse();
     });
-    this.updata();
+    this.myUpdata();
   },
   methods: {
-    updata: function updata() {
-      var _this2 = this;
-
+    myUpdata: function myUpdata() {
       this.intervalid1 = setInterval(function () {
-        _this2.send('post', '/getLastMonster');
+        Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/getLastMonster');
       }, this.updataTime);
     }
   }
@@ -1868,7 +1867,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     create: function create() {
-      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/createAMonster ', this.monster);
+      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/createAMonster ', this.monster, function (response) {
+        router.push({
+          path: "/getAMonster/".concat(3)
+        });
+      });
     }
   }
 });
@@ -2081,10 +2084,13 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    if (!this.stopRun) {
-      this.send('post', '/getAMonster', {
-        id: 1
-      }, function (response) {
+    if (this.stopRun) {
+      this.monster = this.monsterProps;
+    } else {
+      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_3__["send"])('post', '/getAMonster', {
+        id: window.location.hash[window.location.hash.length - 1]
+      }, // z.b: http://127.0.0.1:8000/home?#/getAMonster/6 = 6
+      function (response) {
         _this.monster["id"] = response.data.id;
         _this.monster["name"] = response.data.name;
         _this.monster["imgName"] = response.data.imgName;
@@ -2105,7 +2111,7 @@ __webpack_require__.r(__webpack_exports__);
       intervalid1: function intervalid1() {}
     };
   },
-  props: ["monster", "stopRun"],
+  props: ["monsterProps", "stopRun"],
   methods: {
     editSawp: function editSawp() {
       if (this.edit) {
@@ -2242,6 +2248,97 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/nav/nav.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/nav/nav.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _logo_logoWebGL_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../logo/logoWebGL.js */ "./resources/js/components/logo/logoWebGL.js");
+/* harmony import */ var _axiosSend_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../axiosSend.js */ "./resources/js/components/axiosSend.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    console.log('Component mounted.');
+  },
+  data: function data() {
+    return {
+      logo: null,
+      userName: ''
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    window.MySetName = this.setName;
+    this.logo = new _logo_logoWebGL_js__WEBPACK_IMPORTED_MODULE_0__["CLogo"]('glsl/shader.vs.glsl', 'glsl/shader.fs.glsl', 'model3D/jsom/Logo4.json', 'img/172.JPG', "logo");
+    Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/getUserName', null, function (response) {
+      if (response.data != 0) {
+        _this.userName = response.data;
+      } else {
+        _this.userName = '';
+      }
+    });
+  },
+  methods: {
+    setName: function setName(name) {
+      this.userName = name;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/profil/profil.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/profil/profil.vue?vue&type=script&lang=js& ***!
@@ -2254,10 +2351,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _profilEdit_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./profilEdit.vue */ "./resources/js/components/profil/profilEdit.vue");
 /* harmony import */ var _profilNotEdit_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./profilNotEdit.vue */ "./resources/js/components/profil/profilNotEdit.vue");
 /* harmony import */ var _axiosSend_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../axiosSend.js */ "./resources/js/components/axiosSend.js");
-//
-//
-//
-//
 //
 //
 //
@@ -2316,6 +2409,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   ////////////////////////////////////
   methods: {
+    updateUserData: function updateUserData() {
+      var _this2 = this;
+
+      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_2__["send"])("post", "/updateUserData", this.userData, function () {
+        _this2.editSawp(); // this.$emit('setName', this.userData.name);
+
+
+        window.MySetName(_this2.userData.name);
+      });
+    },
     editSawp: function editSawp() {
       if (this.edit) {
         this.edit = false;
@@ -37249,7 +37352,7 @@ var render = function() {
               [
                 _c(_vm.showAMonster, {
                   tag: "component",
-                  attrs: { monster: value, stopRun: _vm.stopRun }
+                  attrs: { monsterProps: value, stopRun: _vm.stopRun }
                 })
               ],
               1
@@ -38038,6 +38141,222 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/nav/nav.vue?vue&type=template&id=61ae1788&":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/nav/nav.vue?vue&type=template&id=61ae1788& ***!
+  \**********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "nav",
+    { staticClass: "navbar navbar-expand-lg navbar-dark bg-dark" },
+    [
+      _c("router-link", { staticClass: "navbar-brand", attrs: { to: "/" } }, [
+        _c("canvas", { attrs: { id: "logo", width: "30", height: "30" } }, [
+          _vm._v("Webgl no support")
+        ]),
+        _vm._v("\n    Maigc is real\n  ")
+      ]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "collapse navbar-collapse",
+          attrs: { id: "navbarSupportedContent" }
+        },
+        [
+          _c("ul", { staticClass: "navbar-nav mr-auto" }, [
+            _c(
+              "li",
+              { staticClass: "nav-item active" },
+              [
+                _c(
+                  "router-link",
+                  { staticClass: "nav-link", attrs: { to: "/" } },
+                  [
+                    _vm._v("Home "),
+                    _c("span", { staticClass: "sr-only" }, [
+                      _vm._v("(current)")
+                    ])
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "li",
+              { staticClass: "nav-item active" },
+              [
+                _c(
+                  "router-link",
+                  { staticClass: "nav-link", attrs: { to: "/createAMonster" } },
+                  [_vm._v("Create a Monster")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm.userName != ""
+              ? _c("li", { staticClass: "nav-item dropdown active" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-link dropdown-toggle",
+                      attrs: {
+                        href: "#",
+                        id: "navbarDropdown",
+                        role: "button",
+                        "data-toggle": "dropdown",
+                        "aria-haspopup": "true",
+                        "aria-expanded": "false"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n            " + _vm._s(_vm.userName) + "\n        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "dropdown-menu",
+                      attrs: { "aria-labelledby": "navbarDropdown" }
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "dropdown-item",
+                          attrs: { to: "/createAUserMonster" }
+                        },
+                        [_vm._v("Create Your Own Monster")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "dropdown-item",
+                          attrs: { to: "/warAMonster" }
+                        },
+                        [_vm._v("War Monster")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "dropdown-item",
+                          attrs: { to: "/getAMonster" }
+                        },
+                        [_vm._v("Show your Monsters")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "dropdown-divider" }),
+                      _vm._v(" "),
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "dropdown-item",
+                          attrs: { to: "/profil" }
+                        },
+                        [_vm._v("Profil")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "dropdown-item",
+                          attrs: { to: "/logout" }
+                        },
+                        [_vm._v("logout")]
+                      )
+                    ],
+                    1
+                  )
+                ])
+              : _c("li", { staticClass: "nav-item nav-link" }, [
+                  _c(
+                    "a",
+                    { staticClass: "nav-link", attrs: { href: "/login" } },
+                    [_vm._v("login")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    { staticClass: "nav-link", attrs: { href: "/register" } },
+                    [_vm._v("register")]
+                  )
+                ])
+          ]),
+          _vm._v(" "),
+          _vm._m(1)
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "navbar-toggler",
+        attrs: {
+          type: "button",
+          "data-toggle": "collapse",
+          "data-target": "#navbarSupportedContent",
+          "aria-controls": "navbarSupportedContent",
+          "aria-expanded": "false",
+          "aria-label": "Toggle navigation"
+        }
+      },
+      [_c("span", { staticClass: "navbar-toggler-icon" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("form", { staticClass: "form-inline my-2 my-lg-0" }, [
+      _c("input", {
+        staticClass: "form-control mr-sm-2",
+        attrs: { type: "search", placeholder: "Search", "aria-label": "Search" }
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-outline-success my-2 my-sm-0",
+          attrs: { type: "submit" }
+        },
+        [_vm._v("Search")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/profil/profil.vue?vue&type=template&id=42cd9c98&":
 /*!****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/profil/profil.vue?vue&type=template&id=42cd9c98& ***!
@@ -38073,24 +38392,9 @@ var render = function() {
                       _vm._v("back")
                     ]),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        on: {
-                          click: function($event) {
-                            _vm.send(
-                              "post",
-                              "/updateUserData",
-                              _vm.userData,
-                              function() {
-                                _vm.editSawp()
-                              }
-                            )
-                          }
-                        }
-                      },
-                      [_vm._v("Save")]
-                    )
+                    _c("button", { on: { click: _vm.updateUserData } }, [
+                      _vm._v("Save")
+                    ])
                   ],
                   1
                 )
@@ -52141,6 +52445,7 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
+Vue.component('nav-component', __webpack_require__(/*! ./components/nav/nav.vue */ "./resources/js/components/nav/nav.vue").default);
 var routes = [{
   path: '/',
   component: __webpack_require__(/*! ./components/index.vue */ "./resources/js/components/index.vue").default
@@ -52154,7 +52459,7 @@ var routes = [{
   path: '/createAUserMonster',
   component: __webpack_require__(/*! ./components/monster/createAUserMonster.vue */ "./resources/js/components/monster/createAUserMonster.vue").default
 }, {
-  path: '/getAMonster',
+  path: '/getAMonster/:id',
   component: __webpack_require__(/*! ./components/monster/showAMonster.vue */ "./resources/js/components/monster/showAMonster.vue").default
 }, {
   path: '/warAMonster',
@@ -52265,10 +52570,10 @@ function send(methode, url) {
         return true; // I'm always returning true, you may want to do it depending on the status received
       }
     }).catch(function (error) {
-      console.error('error', error);
+      console.error(url, ' error', error);
     }).then(function (response) {
       // this is now called!
-      console.log('response', response);
+      console.log(url, ' response', response);
       callback(response);
     });
   } catch (error) {
@@ -52344,6 +52649,339 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_2ac2c897___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/logo/logoWebGL.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/logo/logoWebGL.js ***!
+  \***************************************************/
+/*! exports provided: CLogo */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLogo", function() { return CLogo; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+///////////////////////////////////////////////////////////////
+// Start webgl and get resources (Vertex Shader, Fragment Shader, 3D Model, Texture)
+var CLogo =
+/*#__PURE__*/
+function () {
+  function CLogo(vs, fs, model3D, textue, _canvas) {
+    _classCallCheck(this, CLogo);
+
+    this.InitWebGL(vs, fs, model3D, textue, _canvas);
+  }
+
+  _createClass(CLogo, [{
+    key: "InitWebGL",
+    value: function InitWebGL(vs, fs, model3D, textue, _canvas) {
+      try {
+        var othis = this; // 1. get Vertex Shader
+
+        othis.loadTextResource(vs, function (vsErr, vsText) {
+          if (vsErr) {
+            throw new error("Vertex Shader not found");
+          } else {
+            // 2. get Fragment Shader
+            othis.loadTextResource(fs, function (fsErr, fsText) {
+              if (fsErr) {
+                throw new error("Fragment Shader not found");
+              } else {
+                // 3. get 3D Model
+                othis.loadJSONResource(model3D, function (modelErr, modelObj) {
+                  if (modelErr) {
+                    throw new error("Texture not found");
+                  } else {
+                    //4. get Texture
+                    othis.loadImage(textue, function (imgErr, img) {
+                      if (imgErr) {
+                        throw new error("Texture not found");
+                      } else {
+                        // 5. Start webgl
+                        othis.RunWebGL(vsText, fsText, img, modelObj, _canvas);
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          }
+        });
+      } catch (e) {
+        console.error('Logo Webgl', e);
+      }
+    }
+  }, {
+    key: "loadTextResource",
+    value: function loadTextResource(url, callback) {
+      var request = new XMLHttpRequest();
+      request.open('GET', url + '?please-dont-cache=' + Math.random(), true);
+
+      request.onload = function () {
+        if (request.status < 200 || request.status > 299) {
+          callback('Error: HTTP Status ' + request.status + ' on resource ' + url);
+        } else {
+          callback(null, request.responseText);
+        }
+      };
+
+      try {
+        request.send(); // No Server Error
+      } catch (e) {}
+    }
+  }, {
+    key: "loadImage",
+    // Load Image
+    value: function loadImage(url, callback) {
+      var image = new Image();
+
+      image.onload = function () {
+        callback(null, image);
+      };
+
+      image.src = url;
+    }
+  }, {
+    key: "loadJSONResource",
+    // load josn
+    value: function loadJSONResource(url, callback) {
+      this.loadTextResource(url, function (err, result) {
+        if (err) {
+          callback(err);
+        } else {
+          try {
+            callback(null, JSON.parse(result));
+          } catch (e) {
+            callback(e);
+          }
+        }
+      });
+    }
+  }, {
+    key: "RunWebGL",
+    ///////////////////////////////////////////////////////
+    // LOGO
+    /////////////////
+    // Need:
+    /////////////////////////////////
+    // id: logo-surface,
+    // class:
+    value: function RunWebGL(vertexShaderText, fragmentShaderText, texture, Model3D, _canvas) {
+      var canvas = document.getElementById(_canvas);
+      var gl = canvas.getContext('webgl');
+
+      if (!gl) {
+        console.log('WebGL not supported, falling back on experimental-webgl');
+        gl = canvas.getContext('experimental-webgl');
+        runFail();
+      }
+
+      if (!gl) {
+        alert('Your browser does not support WebGL');
+        runFail();
+      } ///////////////////////////////////////
+
+
+      gl.enable(gl.DEPTH_TEST); // Enable depth testing
+
+      gl.enable(gl.CULL_FACE);
+      gl.frontFace(gl.CCW);
+      gl.cullFace(gl.BACK); ////////////////////////////////////////////
+      // Create shaders
+
+      var vertexShader = gl.createShader(gl.VERTEX_SHADER);
+      var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER); ////////////////////////////////////////////////////
+      // Returns the source code to the shader
+      // Syntax: void gl.shaderSource(shader, source);
+
+      gl.shaderSource(vertexShader, vertexShaderText);
+      gl.shaderSource(fragmentShader, fragmentShaderText); ////////////////////////////////////////////////////////////////
+      // CompileShader Vertex Shader
+
+      gl.compileShader(vertexShader);
+
+      if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+        console.error('ERROR compiling vertex shader!', gl.getShaderInfoLog(vertexShader));
+        return;
+      } ////////////////////////////////////////////////////////////////
+      // CompileShader Fragment Shader
+
+
+      gl.compileShader(fragmentShader);
+
+      if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+        console.error('ERROR compiling fragment shader!', gl.getShaderInfoLog(fragmentShader));
+        return;
+      } /////////////////////////////////////////////////////////////////////////
+      // initializes a WebGLProgram object.
+
+
+      var program = gl.createProgram(); /////////////////////////////////////////////
+      // assign the vertex shader  to the web program
+
+      gl.attachShader(program, vertexShader); ////////////////////////////////////////////////
+      // assign the fragment shader  to the web program
+
+      gl.attachShader(program, fragmentShader); ////////////////////////////////////////////////////////
+      // The WebGLRenderingContext.linkProgram() method of the WebGL API links a given WebGLProgram
+      // to the attached vertex and fragment shaders.
+      // Syntax: void gl.linkProgram(program);
+
+      gl.linkProgram(program);
+
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        console.error('ERROR linking program!', gl.getProgramInfoLog(program));
+        return;
+      } ////////////////////////////////////////////////////////////
+      // Checks if the program can be used
+
+
+      gl.validateProgram(program);
+
+      if (!gl.getProgramParameter(program, gl.VALIDATE_STATUS)) {
+        console.error('ERROR validating program!', gl.getProgramInfoLog(program));
+        return;
+      } ////////////////////////////////////////////////////////////////////////
+      // Create Buffer / Array
+
+
+      var vertices3DModelArray = Model3D.meshes[0].vertices;
+      var indices3DModelArray = [].concat.apply([], Model3D.meshes[0].faces);
+      var texCoords3DModelArray = Model3D.meshes[0].texturecoords[0];
+      var normals3DModelArray = Model3D.meshes[0].normals; ///////////////////////////////////////////////////////////////////////////////
+      // The WebGLRenderingContext.createBuffer () method of the WebGL API creates and
+      // initializes a WebGLBuffer storing data such as vertices or colors.
+      // Syntax: WebGLBuffer gl.createBuffer();
+
+      var posVertexBufferObject = gl.createBuffer();
+      var texCoordVertexBufferObject = gl.createBuffer();
+      var indexBufferObject = gl.createBuffer();
+      var normalBufferObject = gl.createBuffer(); //////////////////////////////////////////////////////////////
+      //  Bind buffer
+      // Syntax: void gl.bindBuffer(target, buffer);
+      // target =  gl.ARRAY_BUFFER
+      // buffer = posVertexBufferObject
+      // Vertex Buffer Object to Canvas().Context = (gl.ARRAY_BUFFER)
+      //
+      // gl.ARRAY_BUFFER: Buffer containing vertex attributes, such as vertex coordinates,
+      // texture coordinate data, or vertex color data.
+      //
+      // gl.ELEMENT_ARRAY_BUFFER: Buffer used for element indices.
+      // The WebGLRenderingContext.bufferData() method of the WebGL API initializes and
+      // creates the buffer object's data store.
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, posVertexBufferObject);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices3DModelArray), gl.STATIC_DRAW);
+      gl.bindBuffer(gl.ARRAY_BUFFER, texCoordVertexBufferObject);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texCoords3DModelArray), gl.STATIC_DRAW);
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBufferObject);
+      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices3DModelArray), gl.STATIC_DRAW);
+      gl.bindBuffer(gl.ARRAY_BUFFER, normalBufferObject);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals3DModelArray), gl.STATIC_DRAW);
+      gl.bindBuffer(gl.ARRAY_BUFFER, posVertexBufferObject); // fix
+      ///////////////////////////////////////////////////////////////////////////
+
+      var positionAttribLocation = gl.getAttribLocation(program, 'vertPosition');
+      gl.vertexAttribPointer(positionAttribLocation, // Attribute location
+      3, // Number of elements per attribute
+      gl.FLOAT, // Type of elements
+      gl.FALSE, 3 * Float32Array.BYTES_PER_ELEMENT, // Size of an individual vertex
+      0 // Offset from the beginning of a single vertex to this attribute
+      );
+      gl.enableVertexAttribArray(positionAttribLocation);
+      gl.bindBuffer(gl.ARRAY_BUFFER, texCoordVertexBufferObject);
+      var texCoordAttribLocation = gl.getAttribLocation(program, 'vertTexCoord');
+      gl.vertexAttribPointer(texCoordAttribLocation, // Attribute location
+      2, // Number of elements per attribute
+      gl.FLOAT, // Type of elements
+      gl.FALSE, 2 * Float32Array.BYTES_PER_ELEMENT, // Size of an individual vertex
+      0);
+      gl.enableVertexAttribArray(texCoordAttribLocation);
+      gl.bindBuffer(gl.ARRAY_BUFFER, normalBufferObject);
+      var normalAttribLocation = gl.getAttribLocation(program, 'vertNormal');
+      gl.vertexAttribPointer(normalAttribLocation, 3, gl.FLOAT, gl.TRUE, 3 * Float32Array.BYTES_PER_ELEMENT, 0);
+      gl.enableVertexAttribArray(normalAttribLocation); //
+      // Create texture
+      //
+
+      var susanTexture = gl.createTexture();
+      gl.bindTexture(gl.TEXTURE_2D, susanTexture);
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture);
+      gl.bindTexture(gl.TEXTURE_2D, null); // Tell OpenGL state machine which program should be active.
+
+      gl.useProgram(program);
+      var matWorldUniformLocation = gl.getUniformLocation(program, 'mWorld');
+      var matViewUniformLocation = gl.getUniformLocation(program, 'mView');
+      var matProjUniformLocation = gl.getUniformLocation(program, 'mProj');
+      var worldMatrix = new Float32Array(16);
+      var viewMatrix = new Float32Array(16);
+      var projMatrix = new Float32Array(16);
+      mat4.identity(worldMatrix);
+      mat4.lookAt(viewMatrix, [0, 0, -20], [0, 0, 0], [0, 1, 0]);
+      mat4.perspective(projMatrix, glMatrix.toRadian(45), canvas.width / canvas.height, 0.1, 1000.0);
+      gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
+      gl.uniformMatrix4fv(matViewUniformLocation, gl.FALSE, viewMatrix);
+      gl.uniformMatrix4fv(matProjUniformLocation, gl.FALSE, projMatrix);
+      var xRotationMatrix = new Float32Array(16);
+      var yRotationMatrix = new Float32Array(16); //
+      // Lighting information
+      //
+
+      gl.useProgram(program);
+      var ambientUniformLocation = gl.getUniformLocation(program, 'ambientLightIntensity');
+      var sunlightDirUniformLocation = gl.getUniformLocation(program, 'sun.direction');
+      var sunlightIntUniformLocation = gl.getUniformLocation(program, 'sun.color');
+      gl.uniform3f(ambientUniformLocation, 0.2, 0.2, 0.2);
+      gl.uniform3f(sunlightDirUniformLocation, 5.0, -5.0, -2.0);
+      gl.uniform3f(sunlightIntUniformLocation, 0.9, 1.0, 1.0); //
+      // Main render loop
+      //
+
+      var identityMatrix = new Float32Array(16);
+      mat4.identity(identityMatrix);
+      var angle = 0;
+
+      var loop = function loop() {
+        canvas.onmousemove = function (e) {
+          x = e.offsetX || e.clientX - canvas.offsetLeft;
+          y = e.offsetY || e.clientY - canvas.offsetTop; // Focus / Mittel Punkt
+
+          x = x - 25;
+          y = y - 25;
+          gl.uniform3f(sunlightDirUniformLocation, -x, -y, 1.0);
+        };
+
+        angle = performance.now() / 1000 / 6 * 2 * Math.PI;
+        mat4.rotate(yRotationMatrix, identityMatrix, angle, [0, 1, 0]);
+        mat4.rotate(xRotationMatrix, identityMatrix, angle / 4, [1, 0, 0]);
+        mat4.mul(worldMatrix, yRotationMatrix, xRotationMatrix);
+        gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
+        gl.clearColor(0.0, 0.0, 0.0, 0.0);
+        gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
+        gl.bindTexture(gl.TEXTURE_2D, susanTexture);
+        gl.activeTexture(gl.TEXTURE0);
+        gl.drawElements(gl.TRIANGLES, indices3DModelArray.length, gl.UNSIGNED_SHORT, 0);
+        requestAnimationFrame(loop);
+      };
+
+      requestAnimationFrame(loop);
+    }
+  }]);
+
+  return CLogo;
+}();
 
 /***/ }),
 
@@ -52784,6 +53422,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_warAMonster_vue_vue_type_template_id_5718b491___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_warAMonster_vue_vue_type_template_id_5718b491___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/nav/nav.vue":
+/*!*********************************************!*\
+  !*** ./resources/js/components/nav/nav.vue ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _nav_vue_vue_type_template_id_61ae1788___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./nav.vue?vue&type=template&id=61ae1788& */ "./resources/js/components/nav/nav.vue?vue&type=template&id=61ae1788&");
+/* harmony import */ var _nav_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./nav.vue?vue&type=script&lang=js& */ "./resources/js/components/nav/nav.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _nav_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _nav_vue_vue_type_template_id_61ae1788___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _nav_vue_vue_type_template_id_61ae1788___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/nav/nav.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/nav/nav.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/nav/nav.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./nav.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/nav/nav.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/nav/nav.vue?vue&type=template&id=61ae1788&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/nav/nav.vue?vue&type=template&id=61ae1788& ***!
+  \****************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_vue_vue_type_template_id_61ae1788___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./nav.vue?vue&type=template&id=61ae1788& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/nav/nav.vue?vue&type=template&id=61ae1788&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_vue_vue_type_template_id_61ae1788___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_vue_vue_type_template_id_61ae1788___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

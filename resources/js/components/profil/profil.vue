@@ -10,11 +10,7 @@
                      <div v-if="edit">
                             <component :is="profilEdit" :user-data="userData"></component>
                                 <button v-on:click="editSawp">back</button>
-                                <button v-on:click='send("post","/updateUserData",userData,
-                                () => {editSawp();
-
-                                }
-                                 )'>Save</button>
+                                <button v-on:click='updateUserData'>Save</button>
                      </div>
                      <div v-else>
                             <component :is="profilNotEdit" :user-data="userData"></component>
@@ -61,7 +57,12 @@ created() {
 
         ////////////////////////////////////
           methods: {
-
+              updateUserData(){
+        send("post","/updateUserData",this.userData, () => {
+                                    this.editSawp();
+                                    // this.$emit('setName', this.userData.name);
+                                    window.MySetName(this.userData.name);
+                                }) },
 
     editSawp() {
         if(this.edit)

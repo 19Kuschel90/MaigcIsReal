@@ -16,13 +16,16 @@ Vue.use(VueRouter);
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
-
+Vue.component(
+    'nav-component',
+    require('./components/nav/nav.vue').default
+);
 const routes = [
     { path: '/', component: require('./components/index.vue').default },
     { path: '/profil', component: require('./components/profil/profil.vue').default },
     { path: '/createAMonster', component: require('./components/monster/createAMonster.vue').default },
     { path: '/createAUserMonster', component: require('./components/monster/createAUserMonster.vue').default },
-    { path: '/getAMonster', component: require('./components/monster/showAMonster.vue').default },
+    { path: '/getAMonster/:id', component: require('./components/monster/showAMonster.vue').default },
     { path: '/warAMonster', component: require('./components/monster/warAMonster.vue').default },
 ];
 const router = new VueRouter({ routes });

@@ -14,10 +14,10 @@ export function send(methode, url, data = null, callback = () => {}) {
                 return true; // I'm always returning true, you may want to do it depending on the status received
             },
         }).catch(error => {
-            console.error('error', error);
+            console.error(url, ' error', error);
         }).then(response => {
             // this is now called!
-            console.log('response', response);
+            console.log(url, ' response', response);
 
             callback(response);
         });

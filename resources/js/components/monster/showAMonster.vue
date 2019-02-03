@@ -40,18 +40,22 @@ import {send} from './../axiosSend.js';
             console.log('Component mounted showAMonster.')
         },
         created(){
-            if(!this.stopRun)
+            if(this.stopRun )
             {
-                this.send('post','/getAMonster', {id: 1}, (response) => {
-                     this.monster["id"] = response.data.id;
-                            this.monster["name"] = response.data.name;
-                            this.monster["imgName"] = response.data.imgName;
-                            this.monster["AP"] = response.data.AP;
-                            this.monster["DP"] = response.data.DP;
-                            this.monster["DP"] = response.data.HP;
-                            this.monster["Speed"] = response.data.Speed;
-                            this.monster["SpwanWert"] = response.data.SpwanWert;
-                });
+                this.monster =   this.monsterProps;
+            }else{
+                    send('post','/getAMonster',
+                    {id: (window.location.hash[window.location.hash.length -1])}, // z.b: http://127.0.0.1:8000/home?#/getAMonster/6 = 6
+                    (response) => {
+                         this.monster["id"] = response.data.id;
+                                this.monster["name"] = response.data.name;
+                                this.monster["imgName"] = response.data.imgName;
+                                this.monster["AP"] = response.data.AP;
+                                this.monster["DP"] = response.data.DP;
+                                this.monster["DP"] = response.data.HP;
+                                this.monster["Speed"] = response.data.Speed;
+                                this.monster["SpwanWert"] = response.data.SpwanWert;
+                    });
             }
         },
 
@@ -65,7 +69,7 @@ import {send} from './../axiosSend.js';
 
             };
         },
-        props: ["monster", "stopRun"],
+        props: ["monsterProps", "stopRun"],
         methods:{
 
              editSawp() {

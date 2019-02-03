@@ -10,7 +10,7 @@
                     </div>
                 </div>
                <div v-for="value in monsters">
-                <component :is="showAMonster" :monster="value" :stopRun='stopRun'></component>
+                <component :is="showAMonster" :monsterProps="value" :stopRun='stopRun'></component>
                 </div>
             </div>
         </div>
@@ -28,11 +28,11 @@ import {send} from './axiosSend.js';
         },
          data() {
             return {
-                updataTime: 3000,
+                updataTime: 15000,
              showAMonster: CshowAMonster,
                 monsters: [],
-                stopRun:true
-
+                stopRun: true,
+                othis: this
             }
 
         },
@@ -40,13 +40,13 @@ import {send} from './axiosSend.js';
               send('post','/getLastMonster', null, (response)=>{
                       this.monsters = response.data.reverse();
               } );
-              this.updata();
+               this.myUpdata();
           },
     methods:{
 
-                 updata(){
+                 myUpdata(){
             this.intervalid1 = setInterval(()=>{
-              this.send('post','/getLastMonster' );
+              send('post','/getLastMonster' );
              }, this.updataTime);
         },
 
