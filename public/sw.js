@@ -2,8 +2,8 @@ const version = "1.03",
     preCache = "PRECACHE-" + version,
     cacheList = [
         "/",
-        "css/main.css",
-        "img/drawing.svg"
+        "css/app.css",
+        "img/logoEye.svg"
     ];
 
 /*  Service Worker Event Handlers */

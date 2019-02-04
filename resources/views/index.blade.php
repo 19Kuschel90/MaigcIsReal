@@ -44,8 +44,13 @@
 <main>
     <router-view class="alert"></router-view>
 </main>
-<footer></footer>
+<footer>
+    <div class="displayNone AddToHomeScreenMTop" id="addToHome">
+        <p class="AddToHomeScreenButton">Add To Your Homescreen!</p>
     </div>
+</footer>
+    </div>
+    <script src='js/Application.js'></script>
     <script src="{{mix('js/app.js')}}"></script>
     <script src='js/gl-matrix.js'></script>
     <script>
