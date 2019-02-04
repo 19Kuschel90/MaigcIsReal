@@ -64,6 +64,7 @@
                                 @endif
                             </div>
                         </div>
+                        <a href="register">register</a>
                     </form>
                 </div>
             </div>

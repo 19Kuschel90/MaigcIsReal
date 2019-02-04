@@ -27,13 +27,13 @@
           <router-link  class="dropdown-item" to="/getAMonster">Show your Monsters</router-link>
           <div class="dropdown-divider"></div>
           <router-link class="dropdown-item" to="/profil">Profil</router-link>
-          <a class="dropdown-item" to="/logout">logout</a>
+          <a class="dropdown-item" href="/logout">logout</a>
         </div>
       </li>
-        <li class="nav-item nav-link" v-else>
+        <li class="nav-item active" v-else>
             <a class="nav-link" href="/login">login</a>
-            <a class="nav-link" href="/register">register</a>
-            </li>
+      </li>
+
 
     </ul>
     <form class="form-inline my-2 my-lg-0">

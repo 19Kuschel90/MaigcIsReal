@@ -38279,7 +38279,7 @@ var render = function() {
                         "a",
                         {
                           staticClass: "dropdown-item",
-                          attrs: { to: "/logout" }
+                          attrs: { href: "/logout" }
                         },
                         [_vm._v("logout")]
                       )
@@ -38287,17 +38287,11 @@ var render = function() {
                     1
                   )
                 ])
-              : _c("li", { staticClass: "nav-item nav-link" }, [
+              : _c("li", { staticClass: "nav-item active" }, [
                   _c(
                     "a",
                     { staticClass: "nav-link", attrs: { href: "/login" } },
                     [_vm._v("login")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    { staticClass: "nav-link", attrs: { href: "/register" } },
-                    [_vm._v("register")]
                   )
                 ])
           ]),
