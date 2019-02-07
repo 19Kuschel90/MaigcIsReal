@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Monster extends Model
 {
-
     /**
      * The attributes that are guarded from mass assignment.
      *
@@ -17,6 +16,11 @@ class Monster extends Model
      */
     protected $guarded = [];
     protected $table = 'monster';
+
+    public function searchableAs()
+    {
+        return 'posts_index';
+    }
 
     public function getAllData()
     {

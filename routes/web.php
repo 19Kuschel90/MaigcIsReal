@@ -25,6 +25,7 @@ Route::post('/profil', 'indexController@GetYourUser')->name('user')->middleware(
 Route::post('/updateUserData', 'indexController@updateUserData')->name('user')->middleware("auth")->middleware('verified');
 Route::get('/home', 'HomeController@index')->name('home')->middleware("auth");
 
+Route::get('/logout', 'Auth\LoginController@logout');
 
 
 Auth::routes(['verify' => true]);
@@ -33,3 +34,5 @@ Auth::routes(['verify' => true]);
 //     return "this is profile";
 // })->middleware('verified');
 
+// search
+Route::post('/search', 'searchController@search');

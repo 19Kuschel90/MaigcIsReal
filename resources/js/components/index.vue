@@ -36,9 +36,9 @@ import {send} from './axiosSend.js';
             }
 
         },
-        created(){
+        created(){//search
               send('post','/getLastMonster', null, (response)=>{
-                      this.monsters = response.data.reverse();
+                      this.monsters = response.data;
               } );
                this.myUpdata();
           },

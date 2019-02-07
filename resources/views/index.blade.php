@@ -50,9 +50,9 @@
     </div>
 </footer>
     </div>
-    <script src='js/Application.js'></script>
-    <script src="{{mix('js/app.js')}}"></script>
-    <script src='js/gl-matrix.js'></script>
+    <script src='{{ URL::asset("js/Application.js")}}'></script>
+    <script src='{{ URL::asset("js/app.js")}}'></script>
+    <script src='{{ URL::asset("js/gl-matrix.js")}}'></script>
     <script>
         if ('serviceWorker' in navigator) {  
 

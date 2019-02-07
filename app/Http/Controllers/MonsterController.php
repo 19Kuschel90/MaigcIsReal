@@ -35,8 +35,6 @@ class MonsterController extends Controller
 
 
 
-
-
     // Return a Ramdom Moster
     public function ramdomSpawn()
     {
@@ -55,12 +53,8 @@ class MonsterController extends Controller
 
     public function getLastMonster(Request $request)
     {
-        // $request->validate( [
-        //     'number' => ['required', 'integer']
-        //     ]);
-            $monsters =   Monster::all();
-            // array_multisort($monsters-> , SORT_ASC, $monsters);
-            // natcasesort ( $monsters );
+            // $monsters =   Monster::;
+            $monsters = Monster::orderBy('id', 'DESC')->take(4)->get();
             return $monsters;
     }
 
