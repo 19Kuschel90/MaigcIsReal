@@ -36,10 +36,10 @@
 
 
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <div class="form-inline my-2 my-lg-0" >
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-model="search">
+      <div  class="btn btn-outline-success my-2 my-sm-0"  v-on:click="moveToSearch" >Search</div >
+    </div>
   </div>
 </nav>
 </template>
@@ -55,7 +55,8 @@ import {send} from './../axiosSend.js';
         data(){
             return{
                 logo: null,
-                userName: ''
+                userName: '',
+                search:'',
 
             }
         },
@@ -73,8 +74,12 @@ import {send} from './../axiosSend.js';
         methods: {
             setName(name){
                    this.userName = name;
-
+            },
+            moveToSearch(){
+                window.location.hash = '#/search/' + this.search;
+                    location.reload();
             }
+
         }
 
 }

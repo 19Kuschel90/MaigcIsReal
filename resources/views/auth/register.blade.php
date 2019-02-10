@@ -24,6 +24,32 @@
                                 @endif
                             </div>
                         </div>
+  <div class="form-group row">
+                            <label for="firstName" class="col-md-4 col-form-label text-md-right">{{ __('firstName') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="firstName" type="text" class="form-control{{ $errors->has('firstName') ? ' is-invalid' : '' }}" name="firstName" value="{{ old('firstName') }}" required autofocus>
+
+                                @if ($errors->has('firstName'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('firstName') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+  <div class="form-group row">
+                            <label for="lastName" class="col-md-4 col-form-label text-md-right">{{ __('lastName') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="lastName" type="text" class="form-control{{ $errors->has('lastName') ? ' is-invalid' : '' }}" name="lastName" value="{{ old('lastName') }}" required autofocus>
+
+                                @if ($errors->has('lastName'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('lastName') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>

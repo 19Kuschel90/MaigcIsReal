@@ -56,14 +56,18 @@ import searchUser from './searchUser.vue';
             };
         },
 created() {
-            // For adding the token to axios header (add this only one time).
-    send('post','/search', {"search": "Heiko"}, (response) =>{
+    this.getSearch();
+
+        },
+    methods:{
+        getSearch(){
+   send('post','/search', {"search": window.location.hash.split('#/search/')[1] }, (response) =>{
         this.searchData.Monster = response.data.Monster;
         this.searchData.user = response.data.User;
         this.searchData.UserMonster = response.data.UserMonster;
     });
-        },
-
+        }
+    }
 
     }
 

@@ -21,12 +21,15 @@ Route::post('/ramdomSpawn', 'MonsterController@ramdomSpawn');
 Route::post('/getUserName', 'indexController@getUserName');
 Route::post('/getUserMonster', 'UserMonsterController@getUserMonster');
 Route::post('/createAUserMonster', 'UserMonsterController@createAUserMonster')->name('user')->middleware("auth")->middleware('verified');// user monster
-Route::post('/profil', 'indexController@GetYourUser')->name('user')->middleware("auth")->middleware('verified');
-Route::post('/updateUserData', 'indexController@updateUserData')->name('user')->middleware("auth")->middleware('verified');
+Route::post('/profil', 'indexController@GetYourUser')->name('user')->middleware("auth");
+Route::post('/updateUserData', 'indexController@updateUserData')->name('user')->middleware("auth");
 Route::get('/home', 'HomeController@index')->name('home')->middleware("auth");
 
 Route::get('/logout', 'Auth\LoginController@logout');
 
+Route::post('/getUserFirstAndLastName', 'UserFirstAndLastNameController@getUserFirstAndLastName');
+// Route::post('/createUserFirstAndLastName', 'UserFirstAndLastNameController@createUserFirstAndLastName');
+Route::post('/updateUserFirstAndLastName', 'UserFirstAndLastNameController@updateUserFirstAndLastName');
 
 Auth::routes(['verify' => true]);
 // Route::get('/Myprofile', function()

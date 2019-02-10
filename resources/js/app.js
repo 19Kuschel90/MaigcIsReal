@@ -28,6 +28,7 @@ const routes = [
     { path: '/getAMonster/:id', component: require('./components/monster/showAMonster.vue').default },
     { path: '/warAMonster', component: require('./components/monster/warAMonster.vue').default },
     { path: '/search', component: require('./components/search/search.vue').default },
+    { path: '/search/:id', component: require('./components/search/search.vue').default },
 ];
 const router = new VueRouter({ routes });
 

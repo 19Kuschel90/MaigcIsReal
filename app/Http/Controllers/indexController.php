@@ -47,8 +47,9 @@ class indexController extends Controller
             $user->update($request->input());
 
         return $request->input();
-
     }
+
+
 
 
 

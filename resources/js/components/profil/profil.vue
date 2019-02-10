@@ -39,8 +39,9 @@ import {send} from './../axiosSend.js';
                 userData:{
                     name: 'pls wait',
                     email: 'pls wait',
-                    id: 'pls wait'
-
+                    id: 'pls wait',
+                    firstName: 'pls wait',
+                    lastName: 'pls wait',
                 },
                 editSawp: this.editSawp,
               edit: false,
@@ -52,16 +53,30 @@ created() {
                             this.userData["id"] = response.data.id;
                             this.userData["name"] = response.data.name;
                             this.userData["email"] = response.data.email;
+                            this.getUserFirstAndLastName();
     });
         },
 
         ////////////////////////////////////
           methods: {
+              getUserFirstAndLastName(){
+                    send('post','/getUserFirstAndLastName' , null, (response)=>{
+                                                this.userData["firstName"] = response.data[0].firstName;
+                                                this.userData["lastName"] = response.data[0].lastName;
+                        });
+              },
+              updateUserFirstAndLastName(){
+                    send('post','/updateUserFirstAndLastName' , this.userData, (response)=>{
+                        // Too Do
+                        });
+              },
+
               updateUserData(){
-        send("post","/updateUserData",this.userData, () => {
+                    send("post","/updateUserData",this.userData, () => {
                                     this.editSawp();
                                     // this.$emit('setName', this.userData.name);
                                     window.MySetName(this.userData.name);
+                                    this.updateUserFirstAndLastName();
                                 }) },
 
     editSawp() {

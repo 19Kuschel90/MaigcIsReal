@@ -2315,7 +2315,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       logo: null,
-      userName: ''
+      userName: '',
+      search: ''
     };
   },
   created: function created() {
@@ -2334,6 +2335,10 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     setName: function setName(name) {
       this.userName = name;
+    },
+    moveToSearch: function moveToSearch() {
+      window.location.hash = '#/search/' + this.search;
+      location.reload();
     }
   }
 });
@@ -2392,7 +2397,9 @@ __webpack_require__.r(__webpack_exports__);
       userData: {
         name: 'pls wait',
         email: 'pls wait',
-        id: 'pls wait'
+        id: 'pls wait',
+        firstName: 'pls wait',
+        lastName: 'pls wait'
       },
       editSawp: this.editSawp,
       edit: false
@@ -2406,18 +2413,34 @@ __webpack_require__.r(__webpack_exports__);
       _this.userData["id"] = response.data.id;
       _this.userData["name"] = response.data.name;
       _this.userData["email"] = response.data.email;
+
+      _this.getUserFirstAndLastName();
     });
   },
   ////////////////////////////////////
   methods: {
-    updateUserData: function updateUserData() {
+    getUserFirstAndLastName: function getUserFirstAndLastName() {
       var _this2 = this;
 
+      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_2__["send"])('post', '/getUserFirstAndLastName', null, function (response) {
+        _this2.userData["firstName"] = response.data[0].firstName;
+        _this2.userData["lastName"] = response.data[0].lastName;
+      });
+    },
+    updateUserFirstAndLastName: function updateUserFirstAndLastName() {
+      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_2__["send"])('post', '/updateUserFirstAndLastName', this.userData, function (response) {// Too Do
+      });
+    },
+    updateUserData: function updateUserData() {
+      var _this3 = this;
+
       Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_2__["send"])("post", "/updateUserData", this.userData, function () {
-        _this2.editSawp(); // this.$emit('setName', this.userData.name);
+        _this3.editSawp(); // this.$emit('setName', this.userData.name);
 
 
-        window.MySetName(_this2.userData.name);
+        window.MySetName(_this3.userData.name);
+
+        _this3.updateUserFirstAndLastName();
       });
     },
     editSawp: function editSawp() {
@@ -2455,6 +2478,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Edit.');
@@ -2473,6 +2498,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -2558,16 +2585,20 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    var _this = this;
+    this.getSearch();
+  },
+  methods: {
+    getSearch: function getSearch() {
+      var _this = this;
 
-    // For adding the token to axios header (add this only one time).
-    Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_0__["send"])('post', '/search', {
-      "search": "Heiko"
-    }, function (response) {
-      _this.searchData.Monster = response.data.Monster;
-      _this.searchData.user = response.data.User;
-      _this.searchData.UserMonster = response.data.UserMonster;
-    });
+      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_0__["send"])('post', '/search', {
+        "search": window.location.hash.split('#/search/')[1]
+      }, function (response) {
+        _this.searchData.Monster = response.data.Monster;
+        _this.searchData.user = response.data.User;
+        _this.searchData.UserMonster = response.data.UserMonster;
+      });
+    }
   }
 });
 
@@ -2629,8 +2660,7 @@ __webpack_require__.r(__webpack_exports__);
     console.log('Component mounted searchMonster.');
   },
   props: ["monster"],
-  created: function created() {// For adding the token to axios header (add this only one time).
-  }
+  created: function created() {}
 });
 
 /***/ }),
@@ -38554,7 +38584,42 @@ var render = function() {
                 ])
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "form-inline my-2 my-lg-0" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.search,
+                  expression: "search"
+                }
+              ],
+              staticClass: "form-control mr-sm-2",
+              attrs: {
+                type: "search",
+                placeholder: "Search",
+                "aria-label": "Search"
+              },
+              domProps: { value: _vm.search },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.search = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "btn btn-outline-success my-2 my-sm-0",
+                on: { click: _vm.moveToSearch }
+              },
+              [_vm._v("Search")]
+            )
+          ])
         ]
       )
     ],
@@ -38581,26 +38646,6 @@ var staticRenderFns = [
       },
       [_c("span", { staticClass: "navbar-toggler-icon" })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("form", { staticClass: "form-inline my-2 my-lg-0" }, [
-      _c("input", {
-        staticClass: "form-control mr-sm-2",
-        attrs: { type: "search", placeholder: "Search", "aria-label": "Search" }
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-outline-success my-2 my-sm-0",
-          attrs: { type: "submit" }
-        },
-        [_vm._v("Search")]
-      )
-    ])
   }
 ]
 render._withStripped = true
@@ -38740,6 +38785,52 @@ var render = function() {
             }
           }
         })
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v("Firstname:"),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.userData["firstName"],
+              expression: "userData['firstName']"
+            }
+          ],
+          domProps: { value: _vm.userData["firstName"] },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.userData, "firstName", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v("Lastname:"),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.userData["lastName"],
+              expression: "userData['lastName']"
+            }
+          ],
+          domProps: { value: _vm.userData["lastName"] },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.userData, "lastName", $event.target.value)
+            }
+          }
+        })
       ])
     ])
   ])
@@ -38772,7 +38863,11 @@ var render = function() {
       _vm._v(" "),
       _c("p", [_vm._v("Name: " + _vm._s(_vm.userData.name))]),
       _vm._v(" "),
-      _c("p", [_vm._v("E-maiddddl: " + _vm._s(_vm.userData.email))])
+      _c("p", [_vm._v("E-mail: " + _vm._s(_vm.userData.email))]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Firstname: " + _vm._s(_vm.userData.firstName))]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Lastname: " + _vm._s(_vm.userData.lastName))])
     ])
   ])
 }
@@ -53032,6 +53127,9 @@ var routes = [{
   component: __webpack_require__(/*! ./components/monster/warAMonster.vue */ "./resources/js/components/monster/warAMonster.vue").default
 }, {
   path: '/search',
+  component: __webpack_require__(/*! ./components/search/search.vue */ "./resources/js/components/search/search.vue").default
+}, {
+  path: '/search/:id',
   component: __webpack_require__(/*! ./components/search/search.vue */ "./resources/js/components/search/search.vue").default
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({

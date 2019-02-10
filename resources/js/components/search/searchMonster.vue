@@ -49,7 +49,6 @@
         },
    props: ["monster"],
 created() {
-            // For adding the token to axios header (add this only one time).
 
         },
 
