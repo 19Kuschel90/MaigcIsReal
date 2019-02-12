@@ -17,13 +17,14 @@ class indexController extends Controller
 
     public function GetYourUser(Request $request)
     {
+
         return Auth::user();
     }
 
     public function getUserName()
     {
         if(Auth::check()){
-                return Auth::user()->name;
+            return Auth::user()->name;
         }else{
             return 0;// not log in
         }

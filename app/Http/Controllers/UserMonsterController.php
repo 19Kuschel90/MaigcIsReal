@@ -5,21 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\UserMonster;
-
+use App\Http\Controllers\MonsterController;
 class UserMonsterController extends Controller
 {
     //
      // create User Monster
      public function createAUserMonster(Request $request)
      {
-       if(!Auth::check()){
-           return "plese login";
-       }
-         $request->validate( [
-             'name' => ['required', 'string', 'max:255'],
-             'imgName' => ['required', 'string', 'max:255'],
-             'AP' => ['required', 'integer'],
-             'DP' => ['required', 'integer'],
+         if(!Auth::check()){
+             return "plese login";
+            }
+            $request->validate( [
+                'name' => ['required', 'string', 'max:255'],
+                'imgName' => ['required', 'string', 'max:255'],
+                'AP' => ['required', 'integer'],
+                'DP' => ['required', 'integer'],
              'HP' => ['required', 'integer'],
              'Speed' => ['required', 'integer'],
              ]);
@@ -35,6 +35,11 @@ class UserMonsterController extends Controller
              'HP' => $data['HP'],
              'Speed' => $data['Speed'],
              ]);
+             
+            // is for all users can see and war
+            $monsterController = new MonsterController();
+            $monsterController->createAMonster($request);
+
          return  $moster;
         }
 

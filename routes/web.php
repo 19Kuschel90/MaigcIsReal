@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'indexController@index');
-Route::post('/iMLogin', 'UserMonsterController@iMLogin');// is a check
+Route::post('/iMLogin', 'UserMonsterController@iMLogin')->name('user')->middleware("auth")->middleware('verified');// is a check
 Route::post('/createAMonster', 'MonsterController@createAMonster');// all User can create a monster
 Route::post('/getLastMonster', 'MonsterController@getLastMonster');
 Route::post('/getAMonster', 'MonsterController@getAMonster');

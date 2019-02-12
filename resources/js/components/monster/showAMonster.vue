@@ -7,7 +7,7 @@
 
                     <div class="card-body">
 
-                            <div v-if="edit">
+                        <div v-if="edit">
                             <component :is="monsterEdit" :monster="monster"></component>
                                 <button v-on:click="editSawp">back</button>
                                 <button v-on:click='send("post","/updateUserData",userData,
@@ -19,7 +19,9 @@
                      <div v-else>
 
                             <component :is="monsterNotEdit" :monster="monster"></component>
+                            <div v-if="!stopRun">
                         <button v-on:click="editSawp">Edit</button>
+                            </div>
                      </div>
 
                     </div>
@@ -46,7 +48,7 @@ import {send} from './../axiosSend.js';
             }else{
                     send('post','/getAMonster',
                     {id: (window.location.hash[window.location.hash.length -1])}, // z.b: http://127.0.0.1:8000/home?#/getAMonster/6 = 6
-                    (response) => {
+                    (response) => {// caallback
                          this.monster["id"] = response.data.id;
                                 this.monster["name"] = response.data.name;
                                 this.monster["imgName"] = response.data.imgName;
@@ -55,7 +57,8 @@ import {send} from './../axiosSend.js';
                                 this.monster["DP"] = response.data.HP;
                                 this.monster["Speed"] = response.data.Speed;
                                 this.monster["SpwanWert"] = response.data.SpwanWert;
-                    });
+                    }// caallback end
+                    );
             }
         },
 

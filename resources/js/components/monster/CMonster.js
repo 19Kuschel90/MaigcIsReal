@@ -1,3 +1,6 @@
+
+// define the monster class 
+// help VS code
 export class CMonster {
     constructor() {
         this.id = -1;

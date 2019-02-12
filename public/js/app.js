@@ -1778,12 +1778,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1811,7 +1805,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     myUpdata: function myUpdata() {
       this.intervalid1 = setInterval(function () {
-        Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/getLastMonster');
+        if (window.location.hash == '#/') {
+          Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/getLastMonster');
+        }
       }, this.updataTime);
     }
   }
@@ -1830,6 +1826,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CMonster_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CMonster.js */ "./resources/js/components/monster/CMonster.js");
 /* harmony import */ var _axiosSend_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../axiosSend.js */ "./resources/js/components/axiosSend.js");
+/* harmony import */ var _monsterImgNameList_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../monsterImgNameList.js */ "./resources/js/components/monsterImgNameList.js");
 //
 //
 //
@@ -1855,23 +1852,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
   },
+  created: function created() {
+    this.monster.imgName = _monsterImgNameList_js__WEBPACK_IMPORTED_MODULE_2__["monsterImgNameList"][0]["value"];
+  },
   data: function data() {
     return {
-      monster: new _CMonster_js__WEBPACK_IMPORTED_MODULE_0__["CMonster"]()
+      monster: new _CMonster_js__WEBPACK_IMPORTED_MODULE_0__["CMonster"](),
+      options: _monsterImgNameList_js__WEBPACK_IMPORTED_MODULE_2__["monsterImgNameList"]
     };
   },
   methods: {
     create: function create() {
       Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/createAMonster ', this.monster, function (response) {
-        router.push({
-          path: "/getAMonster/".concat(3)
-        });
+        // router.push({ path: `/getAMonster/${3}` });
+        window.location.hash = '#/';
       });
     }
   }
@@ -1890,6 +1896,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CMonster_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CMonster.js */ "./resources/js/components/monster/CMonster.js");
 /* harmony import */ var _axiosSend_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../axiosSend.js */ "./resources/js/components/axiosSend.js");
+/* harmony import */ var _monsterImgNameList_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../monsterImgNameList.js */ "./resources/js/components/monsterImgNameList.js");
 //
 //
 //
@@ -1914,30 +1921,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
   },
+  created: function created() {
+    var _this = this;
+
+    this.monster.imgName = _monsterImgNameList_js__WEBPACK_IMPORTED_MODULE_2__["monsterImgNameList"][0]["value"]; // check login and verify
+
+    Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/iMLogin ', null, function (response) {
+      _this.login = response.data;
+
+      if (_this.login != 1) {
+        alert("pls login or verify your Acc");
+        window.location.hash = '#/';
+      }
+    });
+  },
   data: function data() {
     return {
       monster: new _CMonster_js__WEBPACK_IMPORTED_MODULE_0__["CMonster"](),
-      login: 0
+      login: 0,
+      options: _monsterImgNameList_js__WEBPACK_IMPORTED_MODULE_2__["monsterImgNameList"]
     };
   },
   methods: {
     create: function create() {
-      var _this = this;
+      var _this2 = this;
 
-      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/iMLogin ', null, function (X) {
+      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/iMLogin ', null, function (response) {
         // in callback
-        _this.login = X.data;
+        _this2.login = response.data;
 
-        if (_this.login == 1) {
-          Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/createAUserMonster ', _this.monster);
+        if (_this2.login == 1) {
+          Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/createAUserMonster ', _this2.monster);
+          window.location.hash = '#/';
         } else {
-          alert("pls login");
+          alert("pls login or verify your Acc");
         }
       });
     }
@@ -2074,6 +2103,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2092,6 +2123,7 @@ __webpack_require__.r(__webpack_exports__);
         id: window.location.hash[window.location.hash.length - 1]
       }, // z.b: http://127.0.0.1:8000/home?#/getAMonster/6 = 6
       function (response) {
+        // caallback
         _this.monster["id"] = response.data.id;
         _this.monster["name"] = response.data.name;
         _this.monster["imgName"] = response.data.imgName;
@@ -2100,7 +2132,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.monster["DP"] = response.data.HP;
         _this.monster["Speed"] = response.data.Speed;
         _this.monster["SpwanWert"] = response.data.SpwanWert;
-      });
+      } // caallback end
+      );
     }
   },
   data: function data() {
@@ -2660,7 +2693,8 @@ __webpack_require__.r(__webpack_exports__);
     console.log('Component mounted searchMonster.');
   },
   props: ["monster"],
-  created: function created() {}
+  created: function created() {// For adding the token to axios header (add this only one time).
+  }
 });
 
 /***/ }),
@@ -37631,41 +37665,24 @@ var render = function() {
       _c(
         "div",
         { staticClass: "col-md-8" },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _vm._l(_vm.monsters, function(value) {
-            return _c(
-              "div",
-              [
-                _c(_vm.showAMonster, {
-                  tag: "component",
-                  attrs: { monsterProps: value, stopRun: _vm.stopRun }
-                })
-              ],
-              1
-            )
-          })
-        ],
-        2
+        _vm._l(_vm.monsters, function(value) {
+          return _c(
+            "div",
+            [
+              _c(_vm.showAMonster, {
+                tag: "component",
+                attrs: { monsterProps: value, stopRun: _vm.stopRun }
+              })
+            ],
+            1
+          )
+        }),
+        0
       )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header" }, [_vm._v("Nix Mon")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _vm._v("\n                  hallo welt\n                ")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -37697,6 +37714,11 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", [
+              _c("img", {
+                staticClass: "rounded float-right w-25",
+                attrs: { src: "img/" + _vm.monster.imgName, alt: "Monster" }
+              }),
+              _vm._v(" "),
               _c("div", [
                 _vm._v("Name:"),
                 _c("input", {
@@ -37720,28 +37742,48 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c("div", [
-                _vm._v("imgName:"),
-                _c("input", {
+              _c(
+                "select",
+                {
                   directives: [
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.monster["imgName"],
-                      expression: "monster['imgName']"
+                      value: _vm.monster.imgName,
+                      expression: "monster.imgName"
                     }
                   ],
-                  domProps: { value: _vm.monster["imgName"] },
                   on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.monster, "imgName", $event.target.value)
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.monster,
+                        "imgName",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
                     }
                   }
-                })
-              ]),
+                },
+                _vm._l(_vm.options, function(option) {
+                  return _c("option", { domProps: { value: option.value } }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(option.text) +
+                        "\n                        "
+                    )
+                  ])
+                }),
+                0
+              ),
               _vm._v(" "),
               _c("div", [
                 _vm._v("AP:"),
@@ -37898,6 +37940,11 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", [
+              _c("img", {
+                staticClass: "rounded float-right w-25",
+                attrs: { src: "img/" + _vm.monster.imgName, alt: "Monster" }
+              }),
+              _vm._v(" "),
               _c("div", [
                 _vm._v("Name:"),
                 _c("input", {
@@ -37921,28 +37968,48 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c("div", [
-                _vm._v("imgName:"),
-                _c("input", {
+              _c(
+                "select",
+                {
                   directives: [
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.monster["imgName"],
-                      expression: "monster['imgName']"
+                      value: _vm.monster.imgName,
+                      expression: "monster.imgName"
                     }
                   ],
-                  domProps: { value: _vm.monster["imgName"] },
                   on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.monster, "imgName", $event.target.value)
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.monster,
+                        "imgName",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
                     }
                   }
-                })
-              ]),
+                },
+                _vm._l(_vm.options, function(option) {
+                  return _c("option", { domProps: { value: option.value } }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(option.text) +
+                        "\n                        "
+                    )
+                  ])
+                }),
+                0
+              ),
               _vm._v(" "),
               _c("div", [
                 _vm._v("AP:"),
@@ -38252,11 +38319,14 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("img", {
+      staticClass: "rounded float-right w-25",
+      attrs: { src: "img/" + _vm.monster.imgName, alt: "Monster" }
+    }),
+    _vm._v(" "),
     _c("p", [_vm._v("ID: " + _vm._s(_vm.monster.id) + " ")]),
     _vm._v(" "),
     _c("p", [_vm._v("Name: " + _vm._s(_vm.monster.name))]),
-    _vm._v(" "),
-    _c("p", [_vm._v("Img Name: " + _vm._s(_vm.monster.imgName))]),
     _vm._v(" "),
     _c("p", [_vm._v("AP: " + _vm._s(_vm.monster.AP))]),
     _vm._v(" "),
@@ -38340,9 +38410,13 @@ var render = function() {
                       attrs: { monster: _vm.monster }
                     }),
                     _vm._v(" "),
-                    _c("button", { on: { click: _vm.editSawp } }, [
-                      _vm._v("Edit")
-                    ])
+                    !_vm.stopRun
+                      ? _c("div", [
+                          _c("button", { on: { click: _vm.editSawp } }, [
+                            _vm._v("Edit")
+                          ])
+                        ])
+                      : _vm._e()
                   ],
                   1
                 )
@@ -53664,6 +53738,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CMonster", function() { return CMonster; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+// define the monster class 
+// help VS code
 var CMonster = function CMonster() {
   _classCallCheck(this, CMonster);
 
@@ -54091,6 +54167,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_warAMonster_vue_vue_type_template_id_5718b491___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/monsterImgNameList.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/monsterImgNameList.js ***!
+  \*******************************************************/
+/*! exports provided: monsterImgNameList */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "monsterImgNameList", function() { return monsterImgNameList; });
+var monsterImgNameList = [{
+  text: 'Luna_57x55_f1v1.png',
+  value: 'Luna_57x55_f1v1.png'
+}, {
+  text: 'NONE.png',
+  value: 'NONE.png'
+}, {
+  text: 'OC.svg',
+  value: 'OC.svg'
+}, {
+  text: 'plussvg.svg',
+  value: 'plussvg.svg'
+}, {
+  text: 'RAGE.png',
+  value: 'RAGE.png'
+}, {
+  text: 'sketch-1528670047117.png',
+  value: 'sketch-1528670047117.png'
+}, {
+  text: 'sketch-1528893149916.png',
+  value: 'sketch-1528893149916.png'
+}, {
+  text: 'zahne.svg',
+  value: 'zahne.svg'
+}];
 
 /***/ }),
 

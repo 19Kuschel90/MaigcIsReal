@@ -1,9 +1,9 @@
 <template>
   <div>
 
+                <img v-bind:src="'img/'+ monster.imgName" class="rounded float-right w-25" alt="Monster">
                  <p>ID: {{ monster.id }} </p>
                 <p>Name: {{ monster.name }}</p>
-                  <p>Img Name: {{ monster.imgName }}</p>
                   <p>AP: {{ monster.AP }}</p>
                   <p>DP: {{ monster.DP }}</p>
                   <p>HP: {{ monster.HP }}</p>
