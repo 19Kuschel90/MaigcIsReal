@@ -1,12 +1,10 @@
-
-// define the monster class 
+// define the monster class
 // help VS code
 export class CMonster {
     constructor() {
         this.id = -1;
         this.name = '';
-        this.name = '';
-        this.imgName = '';
+        this.imgName = 'img/NONE.png';
         this.AP = -1;
         this.DP = -1;
         this.HP = -1;

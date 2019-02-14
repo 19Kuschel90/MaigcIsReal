@@ -35,7 +35,7 @@ class UserMonsterController extends Controller
              'HP' => $data['HP'],
              'Speed' => $data['Speed'],
              ]);
-             
+
             // is for all users can see and war
             $monsterController = new MonsterController();
             $monsterController->createAMonster($request);
@@ -52,6 +52,26 @@ class UserMonsterController extends Controller
             return 1;
         }else{
             return 0;
+        }
+    }
+
+    public function destroy(Request $request)
+    {
+        $request->validate( [
+            'id' => ['required', 'integer'],
+            ]);
+            UserMonster::where('id', $request->input()['id'])->delete();
+        // UserMonster::destroy($request->input()['id']);
+        return "IO";
+    }
+
+    public function getAllUserMonster(Request $request)
+    {
+        if(Auth::check())
+        {
+           return UserMonster::where('idUser', Auth::id())->get();// "Class 'App\\Http\\Controllers\\Monster' not found",
+        }else{
+            return 'please login';
         }
     }
 

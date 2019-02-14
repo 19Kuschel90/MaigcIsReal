@@ -24,7 +24,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <router-link  class="dropdown-item" to="/createAUserMonster">Create Your Own Monster</router-link>
           <router-link  class="dropdown-item" to="/warAMonster">War Monster</router-link>
-          <router-link  class="dropdown-item" to="/getAMonster">Show your Monsters</router-link>
+          <router-link  class="dropdown-item" to="/getAllUserMonster">Show your Monsters</router-link>
           <div class="dropdown-divider"></div>
           <router-link class="dropdown-item" to="/profil">Profil</router-link>
           <a class="dropdown-item" href="/logout">logout</a>

@@ -1,9 +1,12 @@
 <template>
-  <div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card card-default">
         <div>
+                <img v-bind:src="'img/'+ monsterA.imgName" class="rounded float-right w-25" alt="Monster">
                  <p>ID: {{ monsterA.id }} </p>
                 <p>Name: {{ monsterA.name }}</p>
-                  <p>Img Name: {{ monsterA.imgName }}</p>
                   <p>AP: {{ monsterA.AP }}</p>
                   <p>DP: {{ monsterA.DP }}</p>
                   <p>HP: {{ monsterA.HP }}</p>
@@ -12,19 +15,34 @@
   </div>
   //////////////////////////////
     <button v-on:click="war">Lets War</button>
+    <button v-on:click="rest">Rest</button>
+     <div v-for="value in Outputs">
+    {{ value}}
+  </div>
   //////////////////////////////
-  <div>
+  <div v-if="monsterB != false">
+                <img v-bind:src="'img/'+ monsterB.imgName" class="rounded float-right w-25" alt="Monster">
                  <p>ID: {{ monsterB.id }} </p>
                 <p>Name: {{ monsterB.name }}</p>
-                  <p>Img Name: {{ monsterB.imgName }}</p>
                   <p>AP: {{ monsterB.AP }}</p>
                   <p>DP: {{ monsterB.DP }}</p>
                   <p>HP: {{ monsterB.HP }}</p>
                   <p>Speed: {{ monsterB.Speed }}</p>
                   <p>SpwanWert: {{ monsterB.SpwanWert }}</p>
   </div>
- <div v-for="value in Outputs">
-    {{ value}}
+  <div v-else>
+
+
+
+
+  <div v-for="aMonster in monsterAllUser" class="card-body">
+                <div  v-on:click="monsterB = aMonster">
+                    <component :is="monsterNotEdit" :monster="aMonster"></component>
+            </div>
+        </div>
+  </div>
+  </div>
+  </div>
   </div>
   </div>
 
@@ -33,6 +51,7 @@
 <script>
 import {CMonster} from './CMonster.js';
 import {send} from './../axiosSend.js';
+import CmonsterNotEdit from './monsterNotEdit.vue';
 
     export default {
         mounted() {
@@ -40,65 +59,92 @@ import {send} from './../axiosSend.js';
         },
         data() {
             return {
-                monsterA:new CMonster(),
+                monsterA: new CMonster(),
+                monsterNotEdit: CmonsterNotEdit,
 
-                 monsterB: new CMonster(),
+                 monsterB: false,
+                 monsterAllUser: [],
                  Outputs: []
             };
         },
         created(){
-            send('post','/ramdomSpawn', {id: 1}, (response) =>{
-                 monster["id"] = response.data.id;
-                            monster["name"] = response.data.name;
-                            monster["imgName"] = response.data.imgName;
-                            monster["AP"] = response.data.AP;
-                            monster["DP"] = response.data.DP;
-                            monster["DP"] = response.data.HP;
-                            monster["Speed"] = response.data.Speed;
-                            monster["SpwanWert"] = response.data.SpwanWert;
-            }, this.monsterA);
-            send('post','/getAMonster', {id: 3}, (response) =>{
-                  monster["id"] = response.data.id;
-                            monster["name"] = response.data.name;
-                            monster["imgName"] = response.data.imgName;
-                            monster["AP"] = response.data.AP;
-                            monster["DP"] = response.data.DP;
-                            monster["DP"] = response.data.HP;
-                            monster["Speed"] = response.data.Speed;
-                            monster["SpwanWert"] = response.data.SpwanWert;
-            }, this.monsterB );
+       this.ramdomSpawn();
+        this.getAllUserMonster();
+
         },
         methods:{
+            ramdomSpawn(){
+                
+                    send('post','/ramdomSpawn', null, (response) =>{
+                                            this.monsterA["id"] = response.data.id;
+                                            this.monsterA["name"] = response.data.name;
+                                            this.monsterA["imgName"] = response.data.imgName;
+                                            this.monsterA["AP"] = response.data.AP;
+                                            this.monsterA["DP"] = response.data.DP;
+                                            this.monsterA["HP"] = response.data.HP;
+                                            this.monsterA["Speed"] = response.data.Speed;
+                                            this.monsterA["SpwanWert"] = response.data.SpwanWert;
+                            });
+            },
+            getAllUserMonster(){
+                    send('post','/getAllUserMonster', null, (response) =>{
+                                        response.data.forEach(element => {
+                                                this.monsterAllUser.push({
+                                                        "id": element.id,
+                                            "name": element.name,
+                                            "imgName": element.imgName,
+                                            "AP": element.AP,
+                                            "DP": element.DP,
+                                            "HP": element.HP,
+                                            "Speed": element.Speed,
+                                            "SpwanWert": element.SpwanWert,
+                                                })
+                                        });
+                            } );
+            },
+
             war(){
 
-             this.attack(
-                 this.monsterA.name, this.monsterA.AP,this.monsterA.DP, this.monsterA.HP, this.monsterA.Speed,
-                 this.monsterB.name, this.monsterB.AP,this.monsterB.DP, this.monsterB.HP, this.monsterB.Speed
-             )
-            },
-            attack(
-                _name,_AP,_DP, _HP, _Speed,
-                _name2, _AP2, _DP2, _HP2, _Speed2
-                )
-            {
-                if(_Speed >= _Speed2)
+
+               if(this.monsterA.Speed >= this.monsterB.Speed)
                 {
-                        this.hit(_name, _name2, _AP, _DP2, _HP2);
+                    this.monsterA.Speed = 0;
+                    this.monsterB.Speed = 1;
+                        this.hit(this.monsterA,this.monsterB );
+
                     }else{
-                        this.hit(_name2, _name, _AP2, _DP, _HP);
-
-                        }
+                        this.monsterB.Speed = 0;
+                        this.monsterA.Speed = 1;
+                        this.hit( this.monsterB, this.monsterA);
+                    }
             },
-            hit(name,name2,AP, DP, HP){
-                            let damge =  DP - AP;
-                            HP -=  damge;
-                            this.addToOutput(name + "Damge: " + damge + " " + name2 +  " HP: " + HP);
-                        if(HP <= 0)
+
+
+
+
+            hit(A, B){
+                            let damge =  A.DP - B.AP;
+                            A.HP -=  damge;
+                            if(damge < 1)
+                            {
+                            this.addToOutput('No Damge');
+                            return;
+                            }
+                            this.addToOutput(B.name + "Damge: " + damge + " " + A.name2 +  " HP: " + A.HP);
+                        if(A.HP <= 0)
                         {
-                            this.addToOutput( name2 + " is lost" +  " HP: " + HP);
-                            alert(name + " Lose");
+                            this.addToOutput( A.name + " is lost" +  " HP: " + B.HP);
+                            alert( B.name + "Damge: " + damge + " " + A.name2 +  " HP: " + A.HP + '\n'+
+                                A.name + " Lose");
+                                this.rest();
                         }
 
+            },
+            rest(){
+ this.ramdomSpawn();
+                            this.getAllUserMonster();
+                            this.monsterB = false;
+                            this.Outputs = [];
             },
             addToOutput(text){
                 this.Outputs.push(text);
@@ -106,16 +152,9 @@ import {send} from './../axiosSend.js';
 
 
         },
-        /**
-         *   Monster:{
-                    name: '',
-                    imgName: '',
-                    AP: -1,
-                    DP: -1,
-                    Speed: -1,
-                    SpwanWert: -1,
-                },
-         */
+
+
+
          props: ["monster"],
 
     }

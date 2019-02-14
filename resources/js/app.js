@@ -25,7 +25,7 @@ const routes = [
     { path: '/profil', component: require('./components/profil/profil.vue').default },
     { path: '/createAMonster', component: require('./components/monster/createAMonster.vue').default },
     { path: '/createAUserMonster', component: require('./components/monster/createAUserMonster.vue').default },
-    { path: '/getAMonster/:id', component: require('./components/monster/showAMonster.vue').default },
+    { path: '/getAllUserMonster', component: require('./components/monster/getAllUserMonster.vue').default },
     { path: '/warAMonster', component: require('./components/monster/warAMonster.vue').default },
     { path: '/search', component: require('./components/search/search.vue').default },
     { path: '/search/:id', component: require('./components/search/search.vue').default },

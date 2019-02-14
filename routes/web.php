@@ -17,6 +17,8 @@ Route::post('/createAMonster', 'MonsterController@createAMonster');// all User c
 Route::post('/getLastMonster', 'MonsterController@getLastMonster');
 Route::post('/getAMonster', 'MonsterController@getAMonster');
 Route::post('/ramdomSpawn', 'MonsterController@ramdomSpawn');
+Route::post('/getAllUserMonster', 'UserMonsterController@getAllUserMonster')->name('user')->middleware("auth")->middleware('verified');
+Route::post('/destroy','UserMonsterController@destroy')->name('user')->middleware("auth")->middleware('verified');
 
 Route::post('/getUserName', 'indexController@getUserName');
 Route::post('/getUserMonster', 'UserMonsterController@getUserMonster');

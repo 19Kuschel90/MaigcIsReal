@@ -57,6 +57,7 @@ import {send} from './../axiosSend.js';
                                 this.monster["DP"] = response.data.HP;
                                 this.monster["Speed"] = response.data.Speed;
                                 this.monster["SpwanWert"] = response.data.SpwanWert;
+                                
                     }// caallback end
                     );
             }

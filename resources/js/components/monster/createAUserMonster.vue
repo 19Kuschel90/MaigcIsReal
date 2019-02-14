@@ -18,6 +18,7 @@
                           <div>DP:<input v-model="monster['DP']"></div>
                           <div>HP:<input v-model="monster['HP']"></div>
                           <div>Speed:<input v-model="monster['Speed']"></div>
+                          <div>SpwanWert:<input v-model="monster['SpwanWert']"></div>
                         </div>
                         <button v-on:click="create">Create</button>
                     </div>
