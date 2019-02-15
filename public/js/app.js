@@ -39191,12 +39191,12 @@ var render = function() {
                           }
                         },
                         [
-                          _c("option", { attrs: { value: "White" } }, [
-                            _vm._v("White")
-                          ]),
-                          _vm._v(" "),
                           _c("option", { attrs: { value: "Dark" } }, [
                             _vm._v("Dark")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "White" } }, [
+                            _vm._v("White")
                           ]),
                           _vm._v(" "),
                           _c("option", { attrs: { value: "Green" } }, [

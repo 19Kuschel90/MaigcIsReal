@@ -11,8 +11,8 @@
                             <component :is="profilEdit" :user-data="userData" ></component>
                                 <div>
                                     Layout:<select v-model="layout">
-                                                <option  value="White">White</option>
-                                                <option value="Dark">Dark</option>
+                                                <option  value="Dark">Dark</option>
+                                                <option value="White">White</option>
                                                 <option value="Green">Green</option>
                                         </select>
                                 </div>
