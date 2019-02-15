@@ -1,15 +1,15 @@
 <template>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark " v-bind:style="layout.nav" >
   <router-link class="navbar-brand" to="/">
-    <canvas id="logo" width="30" height="30">Webgl no support</canvas>
-    Maigc is real
+   <h1 style="font-size: 2rem"> <canvas id="logo" width="30" height="30">Webgl no support</canvas>
+   Maigc is real</h1>
   </router-link>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto" style="font-size: 1.1rem">
       <li class="nav-item active">
         <router-link class="nav-link" to="/">Home <span class="sr-only">(current)</span></router-link>
       </li>
@@ -17,7 +17,6 @@
         <router-link class="nav-link" to="/createAMonster">Create a Monster</router-link>
     </li>
       <li class="nav-item dropdown active" v-if="userName != ''">
-            <!-- <router-link class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"to="/profil">{{ userName }}</router-link> -->
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ userName }}
         </a>
@@ -47,6 +46,7 @@
 <script>
 import {CLogo} from './../logo/logoWebGL.js';
 import {send} from './../axiosSend.js';
+import {layout} from './../layout.js';
 
     export default {
         mounted() {
@@ -57,10 +57,12 @@ import {send} from './../axiosSend.js';
                 logo: null,
                 userName: '',
                 search:'',
+                 layout: '',
 
             }
         },
         created(){
+            this.layout = new layout().getColor();
             window.MySetName = this.setName;
            this.logo = new CLogo('glsl/shader.vs.glsl', 'glsl/shader.fs.glsl', 'model3D/jsom/Logo4.json', 'img/172.JPG', "logo");
            send('post', '/getUserName', null, (response) =>{

@@ -5,15 +5,22 @@
                 <div class="card">
                     <div class="card-header">Profile</div>
 
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <!-- <profilEdit userData="userData"></profilEdit> -->
                      <div v-if="edit">
-                            <component :is="profilEdit" :user-data="userData"></component>
+                            <component :is="profilEdit" :user-data="userData" ></component>
+                                <div>
+                                    Layout:<select v-model="layout">
+                                                <option  value="White">White</option>
+                                                <option value="Dark">Dark</option>
+                                                <option value="Green">Green</option>
+                                        </select>
+                                </div>
                                 <button v-on:click="editSawp">back</button>
                                 <button v-on:click='updateUserData'>Save</button>
                      </div>
                      <div v-else>
-                            <component :is="profilNotEdit" :user-data="userData"></component>
+                            <component :is="profilNotEdit" :user-data="userData" :layout="layout"></component>
                         <button v-on:click="editSawp">Edit</button>
                      </div>
 
@@ -27,6 +34,7 @@
 <script>
 import profilEdit from './profilEdit.vue';
 import profilNotEdit from './profilNotEdit.vue';
+import {layout} from './../layout.js';
 import {send} from './../axiosSend.js';
 
     export default {
@@ -43,6 +51,7 @@ import {send} from './../axiosSend.js';
                     firstName: 'pls wait',
                     lastName: 'pls wait',
                 },
+                layout: new layout().getlayoutName(),
                 editSawp: this.editSawp,
               edit: false,
             };
@@ -73,10 +82,13 @@ created() {
 
               updateUserData(){
                     send("post","/updateUserData",this.userData, () => {
+
                                     this.editSawp();
-                                    // this.$emit('setName', this.userData.name);
                                     window.MySetName(this.userData.name);
                                     this.updateUserFirstAndLastName();
+                                    new layout().setLayout(this.layout);
+                                       this.layout = new layout().getlayoutName();
+                                       window.location.reload();
                                 }) },
 
     editSawp() {

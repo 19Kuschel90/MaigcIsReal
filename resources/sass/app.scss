@@ -11,3 +11,59 @@
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+.AddToHomeScreenButton {
+    width: 101px;
+    text-align: center;
+    margin: 0 auto;
+    background: cyan;
+    cursor: pointer;
+}
+
+.AddToHomeScreenButton:hover {
+    background: aquamarine;
+}
+
+.get4rem {
+    font-size: 4rem;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 2rem;
+    font-family: inherit;
+    vertical-align: baseline;
+}
+
+.myCardBorder {
+    border-style: ridge;
+    border-width: 5px;
+    border-color: lemonchiffon;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.myMonsterName {
+    font-size: 1.3rem;
+}
+
+.backButton {
+    background: darkorange;
+    padding: 35px;
+    font-size: 2rem;
+    border-radius: 0% 0% 25% 0%;
+    box-shadow: -2px 8px black;
+}
+
+.backButton:hover {
+    background: rgb(206, 114, 2);
+}
+
+.navRem {
+    font-size: 1.1rem;
+}

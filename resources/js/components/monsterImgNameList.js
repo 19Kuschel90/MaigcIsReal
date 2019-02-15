@@ -1,10 +1,10 @@
 export var monsterImgNameList = [
-    { text: 'Luna_57x55_f1v1.png', value: 'Luna_57x55_f1v1.png' },
-    { text: 'NONE.png', value: 'NONE.png' },
-    { text: 'OC.svg', value: 'OC.svg' },
-    { text: 'plussvg.svg', value: 'plussvg.svg' },
-    { text: 'RAGE.png', value: 'RAGE.png' },
-    { text: 'sketch-1528670047117.png', value: 'sketch-1528670047117.png' },
-    { text: 'sketch-1528893149916.png', value: 'sketch-1528893149916.png' },
-    { text: 'zahne.svg', value: 'zahne.svg' },
+    { text: 'None', value: 'NONE.png' },
+    { text: 'Luna', value: 'Luna_57x55_f1v1.png' },
+    { text: 'Pony', value: 'OC.svg' },
+    { text: 'Plus Of Dead', value: 'plussvg.svg' },
+    { text: 'RAGE Of Smil', value: 'RAGE.png' },
+    { text: 'What', value: 'sketch-1528670047117.png' },
+    { text: 'Oh noo', value: 'sketch-1528893149916.png' },
+    { text: 'Let Foot', value: 'zahne.svg' },
 ];

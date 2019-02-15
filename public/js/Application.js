@@ -27,7 +27,7 @@
 
             var a2hsBtn = document.getElementById("addToHome");
 
-            a2hsBtn.style.display = "flex";
+            // a2hsBtn.style.display = "flex";
 
             a2hsBtn.addEventListener("click", addToHomeScreen);
         }

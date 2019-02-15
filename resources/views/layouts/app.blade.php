@@ -20,7 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div><a href="/">Back</a></div>
+    <div><a href="/" class="backButton">Back</a></div>
         <main class="py-4">
             @yield('content')
         </main>

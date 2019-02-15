@@ -1778,6 +1778,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1990,6 +1996,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CMonster_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CMonster.js */ "./resources/js/components/monster/CMonster.js");
 /* harmony import */ var _axiosSend_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../axiosSend.js */ "./resources/js/components/axiosSend.js");
 /* harmony import */ var _monsterNotEdit_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./monsterNotEdit.vue */ "./resources/js/components/monster/monsterNotEdit.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2307,6 +2318,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2361,6 +2379,11 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     war: function war() {
+      if (this.monsterB == false) {
+        alert('pls pick a Monster');
+        return;
+      }
+
       if (this.monsterA.Speed >= this.monsterB.Speed) {
         this.monsterA.Speed = 0;
         this.monsterB.Speed = 1;
@@ -2390,6 +2413,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     rest: function rest() {
       this.ramdomSpawn();
+      this.monsterAllUser = [];
       this.getAllUserMonster();
       this.monsterB = false;
       this.Outputs = [];
@@ -2414,6 +2438,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _logo_logoWebGL_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../logo/logoWebGL.js */ "./resources/js/components/logo/logoWebGL.js");
 /* harmony import */ var _axiosSend_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../axiosSend.js */ "./resources/js/components/axiosSend.js");
+/* harmony import */ var _layout_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../layout.js */ "./resources/js/components/layout.js");
 //
 //
 //
@@ -2459,7 +2484,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2470,12 +2495,14 @@ __webpack_require__.r(__webpack_exports__);
     return {
       logo: null,
       userName: '',
-      search: ''
+      search: '',
+      layout: ''
     };
   },
   created: function created() {
     var _this = this;
 
+    this.layout = new _layout_js__WEBPACK_IMPORTED_MODULE_2__["layout"]().getColor();
     window.MySetName = this.setName;
     this.logo = new _logo_logoWebGL_js__WEBPACK_IMPORTED_MODULE_0__["CLogo"]('glsl/shader.vs.glsl', 'glsl/shader.fs.glsl', 'model3D/jsom/Logo4.json', 'img/172.JPG', "logo");
     Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_1__["send"])('post', '/getUserName', null, function (response) {
@@ -2510,7 +2537,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _profilEdit_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./profilEdit.vue */ "./resources/js/components/profil/profilEdit.vue");
 /* harmony import */ var _profilNotEdit_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./profilNotEdit.vue */ "./resources/js/components/profil/profilNotEdit.vue");
-/* harmony import */ var _axiosSend_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../axiosSend.js */ "./resources/js/components/axiosSend.js");
+/* harmony import */ var _layout_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../layout.js */ "./resources/js/components/layout.js");
+/* harmony import */ var _axiosSend_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../axiosSend.js */ "./resources/js/components/axiosSend.js");
 //
 //
 //
@@ -2537,6 +2565,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -2555,6 +2591,7 @@ __webpack_require__.r(__webpack_exports__);
         firstName: 'pls wait',
         lastName: 'pls wait'
       },
+      layout: new _layout_js__WEBPACK_IMPORTED_MODULE_2__["layout"]().getlayoutName(),
       editSawp: this.editSawp,
       edit: false
     };
@@ -2563,7 +2600,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     // For adding the token to axios header (add this only one time).
-    Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_2__["send"])('post', '/profil', null, function (response) {
+    Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_3__["send"])('post', '/profil', null, function (response) {
       _this.userData["id"] = response.data.id;
       _this.userData["name"] = response.data.name;
       _this.userData["email"] = response.data.email;
@@ -2576,25 +2613,28 @@ __webpack_require__.r(__webpack_exports__);
     getUserFirstAndLastName: function getUserFirstAndLastName() {
       var _this2 = this;
 
-      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_2__["send"])('post', '/getUserFirstAndLastName', null, function (response) {
+      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_3__["send"])('post', '/getUserFirstAndLastName', null, function (response) {
         _this2.userData["firstName"] = response.data[0].firstName;
         _this2.userData["lastName"] = response.data[0].lastName;
       });
     },
     updateUserFirstAndLastName: function updateUserFirstAndLastName() {
-      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_2__["send"])('post', '/updateUserFirstAndLastName', this.userData, function (response) {// Too Do
+      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_3__["send"])('post', '/updateUserFirstAndLastName', this.userData, function (response) {// Too Do
       });
     },
     updateUserData: function updateUserData() {
       var _this3 = this;
 
-      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_2__["send"])("post", "/updateUserData", this.userData, function () {
-        _this3.editSawp(); // this.$emit('setName', this.userData.name);
-
+      Object(_axiosSend_js__WEBPACK_IMPORTED_MODULE_3__["send"])("post", "/updateUserData", this.userData, function () {
+        _this3.editSawp();
 
         window.MySetName(_this3.userData.name);
 
         _this3.updateUserFirstAndLastName();
+
+        new _layout_js__WEBPACK_IMPORTED_MODULE_2__["layout"]().setLayout(_this3.layout);
+        _this3.layout = new _layout_js__WEBPACK_IMPORTED_MODULE_2__["layout"]().getlayoutName();
+        window.location.reload();
       });
     },
     editSawp: function editSawp() {
@@ -2664,11 +2704,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Edit.');
   },
-  props: ["userData"]
+  props: ["userData", "layout"]
 });
 
 /***/ }),
@@ -37786,19 +37828,56 @@ var render = function() {
       _c(
         "div",
         { staticClass: "col-md-8" },
-        _vm._l(_vm.monsters, function(value) {
-          return _c(
-            "div",
-            [
-              _c(_vm.showAMonster, {
-                tag: "component",
-                attrs: { monsterProps: value, stopRun: _vm.stopRun }
-              })
-            ],
-            1
-          )
-        }),
-        0
+        [
+          _c("div", { staticClass: "card-body text-center" }, [
+            _c(
+              "p",
+              [
+                _vm._v("Welcome,\n\n              you can expect great "),
+                _c(
+                  "router-link",
+                  { staticClass: "nav-link", attrs: { to: "/warAMonster" } },
+                  [_vm._v("War Monster")]
+                ),
+                _vm._v(
+                  " battles\n              To participate in a fight you need to register and "
+                ),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "nav-link",
+                    attrs: { to: "/createAUserMonster" }
+                  },
+                  [_vm._v("create your own monster.")]
+                ),
+                _vm._v("\n              but you can also  "),
+                _c(
+                  "router-link",
+                  { staticClass: "nav-link", attrs: { to: "/createAMonster" } },
+                  [_vm._v("Create a Monster")]
+                ),
+                _vm._v(
+                  " against the monster button against which all registered users can fight."
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.monsters, function(value) {
+            return _c(
+              "div",
+              [
+                _c(_vm.showAMonster, {
+                  tag: "component",
+                  attrs: { monsterProps: value, stopRun: _vm.stopRun }
+                })
+              ],
+              1
+            )
+          })
+        ],
+        2
       )
     ])
   ])
@@ -37830,7 +37909,7 @@ var render = function() {
       _c("div", { staticClass: "col-md-8" }, [
         _c("div", { staticClass: "card card-default" }, [
           _c("div", { staticClass: "card-header" }, [
-            _vm._v("Example Component")
+            _vm._v("Create A Monster")
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -37917,6 +37996,7 @@ var render = function() {
                       expression: "monster['AP']"
                     }
                   ],
+                  attrs: { type: "number" },
                   domProps: { value: _vm.monster["AP"] },
                   on: {
                     input: function($event) {
@@ -37940,6 +38020,7 @@ var render = function() {
                       expression: "monster['DP']"
                     }
                   ],
+                  attrs: { type: "number" },
                   domProps: { value: _vm.monster["DP"] },
                   on: {
                     input: function($event) {
@@ -37963,6 +38044,7 @@ var render = function() {
                       expression: "monster['HP']"
                     }
                   ],
+                  attrs: { type: "number" },
                   domProps: { value: _vm.monster["HP"] },
                   on: {
                     input: function($event) {
@@ -37986,6 +38068,7 @@ var render = function() {
                       expression: "monster['Speed']"
                     }
                   ],
+                  attrs: { type: "number" },
                   domProps: { value: _vm.monster["Speed"] },
                   on: {
                     input: function($event) {
@@ -38009,6 +38092,7 @@ var render = function() {
                       expression: "monster['SpwanWert']"
                     }
                   ],
+                  attrs: { type: "number" },
                   domProps: { value: _vm.monster["SpwanWert"] },
                   on: {
                     input: function($event) {
@@ -38056,7 +38140,7 @@ var render = function() {
       _c("div", { staticClass: "col-md-8" }, [
         _c("div", { staticClass: "card card-default" }, [
           _c("div", { staticClass: "card-header" }, [
-            _vm._v("Example Component")
+            _vm._v("Create your own Monster")
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -38143,6 +38227,7 @@ var render = function() {
                       expression: "monster['AP']"
                     }
                   ],
+                  attrs: { type: "number" },
                   domProps: { value: _vm.monster["AP"] },
                   on: {
                     input: function($event) {
@@ -38166,6 +38251,7 @@ var render = function() {
                       expression: "monster['DP']"
                     }
                   ],
+                  attrs: { type: "number" },
                   domProps: { value: _vm.monster["DP"] },
                   on: {
                     input: function($event) {
@@ -38189,6 +38275,7 @@ var render = function() {
                       expression: "monster['HP']"
                     }
                   ],
+                  attrs: { type: "number" },
                   domProps: { value: _vm.monster["HP"] },
                   on: {
                     input: function($event) {
@@ -38212,6 +38299,7 @@ var render = function() {
                       expression: "monster['Speed']"
                     }
                   ],
+                  attrs: { type: "number" },
                   domProps: { value: _vm.monster["Speed"] },
                   on: {
                     input: function($event) {
@@ -38235,6 +38323,7 @@ var render = function() {
                       expression: "monster['SpwanWert']"
                     }
                   ],
+                  attrs: { type: "number" },
                   domProps: { value: _vm.monster["SpwanWert"] },
                   on: {
                     input: function($event) {
@@ -38280,37 +38369,56 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-8" }, [
-        _c(
-          "div",
-          { staticClass: "card card-default" },
-          _vm._l(_vm.monsterAllUser, function(aMonster) {
-            return _c("div", { staticClass: "card-body" }, [
-              _c(
+        _c("div", { staticClass: "card card-default" }, [
+          _vm.monsterAllUser.length != 0
+            ? _c(
+                "div",
+                _vm._l(_vm.monsterAllUser, function(aMonster) {
+                  return _c("div", { staticClass: "card-body" }, [
+                    _c(
+                      "div",
+                      [
+                        _c(_vm.monsterNotEdit, {
+                          tag: "component",
+                          attrs: { monster: aMonster }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            on: {
+                              click: function() {
+                                return _vm.destroy(aMonster.id)
+                              }
+                            }
+                          },
+                          [_vm._v("destroy")]
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                }),
+                0
+              )
+            : _c(
                 "div",
                 [
-                  _c(_vm.monsterNotEdit, {
-                    tag: "component",
-                    attrs: { monster: aMonster }
-                  }),
-                  _vm._v(" "),
+                  _vm._v(
+                    "\n                          asdds\n                          "
+                  ),
                   _c(
-                    "button",
+                    "router-link",
                     {
-                      on: {
-                        click: function() {
-                          return _vm.destroy(aMonster.id)
-                        }
-                      }
+                      staticClass: "nav-link",
+                      attrs: { to: "/createAUserMonster" }
                     },
-                    [_vm._v("destroy")]
+                    [_vm._v("Create a Monster")]
                   )
                 ],
                 1
               )
-            ])
-          }),
-          0
-        )
+        ])
       ])
     ])
   ])
@@ -38337,7 +38445,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "text-center" }, [
     _c("div", [
       _vm._v("Name:"),
       _c("input", {
@@ -38568,63 +38676,72 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-8" }, [
-        _c("div", { staticClass: "card card-default" }, [
-          _c("div", { staticClass: "card-header" }, [_vm._v("Show a Monster")]),
+        _c("div", { staticClass: "card card-default myCardBorder" }, [
+          _c("div", { staticClass: "card-header text-center myMonsterName" }, [
+            _vm._v(_vm._s(_vm.monster["name"]))
+          ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _vm.edit
-              ? _c(
-                  "div",
-                  [
-                    _c(_vm.monsterEdit, {
-                      tag: "component",
-                      attrs: { monster: _vm.monster }
-                    }),
-                    _vm._v(" "),
-                    _c("button", { on: { click: _vm.editSawp } }, [
-                      _vm._v("back")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        on: {
-                          click: function($event) {
-                            _vm.send(
-                              "post",
-                              "/updateUserData",
-                              _vm.userData,
-                              function() {
-                                _vm.editSawp()
-                              }
-                            )
+          _c(
+            "div",
+            {
+              staticClass:
+                "card-body border-20px border-primary margin-bottom-10px"
+            },
+            [
+              _vm.edit
+                ? _c(
+                    "div",
+                    [
+                      _c(_vm.monsterEdit, {
+                        tag: "component",
+                        attrs: { monster: _vm.monster }
+                      }),
+                      _vm._v(" "),
+                      _c("button", { on: { click: _vm.editSawp } }, [
+                        _vm._v("back")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          on: {
+                            click: function($event) {
+                              _vm.send(
+                                "post",
+                                "/updateUserData",
+                                _vm.userData,
+                                function() {
+                                  _vm.editSawp()
+                                }
+                              )
+                            }
                           }
-                        }
-                      },
-                      [_vm._v("Save")]
-                    )
-                  ],
-                  1
-                )
-              : _c(
-                  "div",
-                  [
-                    _c(_vm.monsterNotEdit, {
-                      tag: "component",
-                      attrs: { monster: _vm.monster }
-                    }),
-                    _vm._v(" "),
-                    !_vm.stopRun
-                      ? _c("div", [
-                          _c("button", { on: { click: _vm.editSawp } }, [
-                            _vm._v("Edit")
+                        },
+                        [_vm._v("Save")]
+                      )
+                    ],
+                    1
+                  )
+                : _c(
+                    "div",
+                    [
+                      _c(_vm.monsterNotEdit, {
+                        tag: "component",
+                        attrs: { monster: _vm.monster }
+                      }),
+                      _vm._v(" "),
+                      !_vm.stopRun
+                        ? _c("div", [
+                            _c("button", { on: { click: _vm.editSawp } }, [
+                              _vm._v("Edit")
+                            ])
                           ])
-                        ])
-                      : _vm._e()
-                  ],
-                  1
-                )
-          ])
+                        : _vm._e()
+                    ],
+                    1
+                  )
+            ]
+          )
         ])
       ])
     ])
@@ -38679,15 +38796,17 @@ var render = function() {
               _vm._v(" "),
               _c("p", [_vm._v("SpwanWert: " + _vm._s(_vm.monsterA.SpwanWert))])
             ]),
-            _vm._v("\n//////////////////////////////\n  "),
+            _vm._v("\n//////////////////////////////\n              "),
             _c("button", { on: { click: _vm.war } }, [_vm._v("Lets War")]),
             _vm._v(" "),
             _c("button", { on: { click: _vm.rest } }, [_vm._v("Rest")]),
             _vm._v(" "),
             _vm._l(_vm.Outputs, function(value) {
-              return _c("div", [_vm._v("\n  " + _vm._s(value) + "\n")])
+              return _c("div", [
+                _vm._v("\n              " + _vm._s(value) + "\n")
+              ])
             }),
-            _vm._v("\n//////////////////////////////\n"),
+            _vm._v("\n//////////////////////////////\n\n"),
             _vm.monsterB != false
               ? _c("div", [
                   _c("img", {
@@ -38714,31 +38833,49 @@ var render = function() {
                     _vm._v("SpwanWert: " + _vm._s(_vm.monsterB.SpwanWert))
                   ])
                 ])
-              : _c(
-                  "div",
-                  _vm._l(_vm.monsterAllUser, function(aMonster) {
-                    return _c("div", { staticClass: "card-body" }, [
-                      _c(
+              : _c("div", [
+                  _vm.monsterAllUser.length != 0
+                    ? _c(
                         "div",
-                        {
-                          on: {
-                            click: function($event) {
-                              _vm.monsterB = aMonster
-                            }
-                          }
-                        },
+                        _vm._l(_vm.monsterAllUser, function(aMonster) {
+                          return _c("div", { staticClass: "card-body" }, [
+                            _c(
+                              "div",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.monsterB = aMonster
+                                  }
+                                }
+                              },
+                              [
+                                _c(_vm.monsterNotEdit, {
+                                  tag: "component",
+                                  attrs: { monster: aMonster }
+                                })
+                              ],
+                              1
+                            )
+                          ])
+                        }),
+                        0
+                      )
+                    : _c(
+                        "div",
                         [
-                          _c(_vm.monsterNotEdit, {
-                            tag: "component",
-                            attrs: { monster: aMonster }
-                          })
+                          _c(
+                            "router-link",
+                            {
+                              staticClass:
+                                "nav-link text-center alert alert-danger get4rem",
+                              attrs: { to: "/createAUserMonster" }
+                            },
+                            [_vm._v("Create your Monster")]
+                          )
                         ],
                         1
                       )
-                    ])
-                  }),
-                  0
-                )
+                ])
           ],
           2
         )
@@ -38770,13 +38907,18 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "nav",
-    { staticClass: "navbar navbar-expand-lg navbar-dark bg-dark" },
+    {
+      staticClass: "navbar navbar-expand-lg navbar-dark ",
+      style: _vm.layout.nav
+    },
     [
       _c("router-link", { staticClass: "navbar-brand", attrs: { to: "/" } }, [
-        _c("canvas", { attrs: { id: "logo", width: "30", height: "30" } }, [
-          _vm._v("Webgl no support")
-        ]),
-        _vm._v("\n    Maigc is real\n  ")
+        _c("h1", { staticStyle: { "font-size": "2rem" } }, [
+          _c("canvas", { attrs: { id: "logo", width: "30", height: "30" } }, [
+            _vm._v("Webgl no support")
+          ]),
+          _vm._v("\n   Maigc is real")
+        ])
       ]),
       _vm._v(" "),
       _vm._m(0),
@@ -38788,125 +38930,135 @@ var render = function() {
           attrs: { id: "navbarSupportedContent" }
         },
         [
-          _c("ul", { staticClass: "navbar-nav mr-auto" }, [
-            _c(
-              "li",
-              { staticClass: "nav-item active" },
-              [
-                _c(
-                  "router-link",
-                  { staticClass: "nav-link", attrs: { to: "/" } },
-                  [
-                    _vm._v("Home "),
-                    _c("span", { staticClass: "sr-only" }, [
-                      _vm._v("(current)")
-                    ])
-                  ]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "li",
-              { staticClass: "nav-item active" },
-              [
-                _c(
-                  "router-link",
-                  { staticClass: "nav-link", attrs: { to: "/createAMonster" } },
-                  [_vm._v("Create a Monster")]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _vm.userName != ""
-              ? _c("li", { staticClass: "nav-item dropdown active" }, [
+          _c(
+            "ul",
+            {
+              staticClass: "navbar-nav mr-auto",
+              staticStyle: { "font-size": "1.1rem" }
+            },
+            [
+              _c(
+                "li",
+                { staticClass: "nav-item active" },
+                [
                   _c(
-                    "a",
-                    {
-                      staticClass: "nav-link dropdown-toggle",
-                      attrs: {
-                        href: "#",
-                        id: "navbarDropdown",
-                        role: "button",
-                        "data-toggle": "dropdown",
-                        "aria-haspopup": "true",
-                        "aria-expanded": "false"
-                      }
-                    },
+                    "router-link",
+                    { staticClass: "nav-link", attrs: { to: "/" } },
                     [
-                      _vm._v(
-                        "\n            " + _vm._s(_vm.userName) + "\n        "
-                      )
+                      _vm._v("Home "),
+                      _c("span", { staticClass: "sr-only" }, [
+                        _vm._v("(current)")
+                      ])
                     ]
-                  ),
-                  _vm._v(" "),
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item active" },
+                [
                   _c(
-                    "div",
+                    "router-link",
                     {
-                      staticClass: "dropdown-menu",
-                      attrs: { "aria-labelledby": "navbarDropdown" }
+                      staticClass: "nav-link",
+                      attrs: { to: "/createAMonster" }
                     },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "dropdown-item",
-                          attrs: { to: "/createAUserMonster" }
-                        },
-                        [_vm._v("Create Your Own Monster")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "dropdown-item",
-                          attrs: { to: "/warAMonster" }
-                        },
-                        [_vm._v("War Monster")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "dropdown-item",
-                          attrs: { to: "/getAllUserMonster" }
-                        },
-                        [_vm._v("Show your Monsters")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "dropdown-divider" }),
-                      _vm._v(" "),
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "dropdown-item",
-                          attrs: { to: "/profil" }
-                        },
-                        [_vm._v("Profil")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass: "dropdown-item",
-                          attrs: { href: "/logout" }
-                        },
-                        [_vm._v("logout")]
-                      )
-                    ],
-                    1
+                    [_vm._v("Create a Monster")]
                   )
-                ])
-              : _c("li", { staticClass: "nav-item active" }, [
-                  _c(
-                    "a",
-                    { staticClass: "nav-link", attrs: { href: "/login" } },
-                    [_vm._v("login")]
-                  )
-                ])
-          ]),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.userName != ""
+                ? _c("li", { staticClass: "nav-item dropdown active" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "nav-link dropdown-toggle",
+                        attrs: {
+                          href: "#",
+                          id: "navbarDropdown",
+                          role: "button",
+                          "data-toggle": "dropdown",
+                          "aria-haspopup": "true",
+                          "aria-expanded": "false"
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n            " + _vm._s(_vm.userName) + "\n        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "dropdown-menu",
+                        attrs: { "aria-labelledby": "navbarDropdown" }
+                      },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "dropdown-item",
+                            attrs: { to: "/createAUserMonster" }
+                          },
+                          [_vm._v("Create Your Own Monster")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "dropdown-item",
+                            attrs: { to: "/warAMonster" }
+                          },
+                          [_vm._v("War Monster")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "dropdown-item",
+                            attrs: { to: "/getAllUserMonster" }
+                          },
+                          [_vm._v("Show your Monsters")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "dropdown-divider" }),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "dropdown-item",
+                            attrs: { to: "/profil" }
+                          },
+                          [_vm._v("Profil")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-item",
+                            attrs: { href: "/logout" }
+                          },
+                          [_vm._v("logout")]
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                : _c("li", { staticClass: "nav-item active" }, [
+                    _c(
+                      "a",
+                      { staticClass: "nav-link", attrs: { href: "/login" } },
+                      [_vm._v("login")]
+                    )
+                  ])
+            ]
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "form-inline my-2 my-lg-0" }, [
             _c("input", {
@@ -38999,7 +39151,7 @@ var render = function() {
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [_vm._v("Profile")]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "card-body text-center" }, [
             _vm.edit
               ? _c(
                   "div",
@@ -39008,6 +39160,51 @@ var render = function() {
                       tag: "component",
                       attrs: { "user-data": _vm.userData }
                     }),
+                    _vm._v(" "),
+                    _c("div", [
+                      _vm._v("\n                                Layout:"),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.layout,
+                              expression: "layout"
+                            }
+                          ],
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.layout = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "White" } }, [
+                            _vm._v("White")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Dark" } }, [
+                            _vm._v("Dark")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Green" } }, [
+                            _vm._v("Green")
+                          ])
+                        ]
+                      )
+                    ]),
                     _vm._v(" "),
                     _c("button", { on: { click: _vm.editSawp } }, [
                       _vm._v("back")
@@ -39024,7 +39221,7 @@ var render = function() {
                   [
                     _c(_vm.profilNotEdit, {
                       tag: "component",
-                      attrs: { "user-data": _vm.userData }
+                      attrs: { "user-data": _vm.userData, layout: _vm.layout }
                     }),
                     _vm._v(" "),
                     _c("button", { on: { click: _vm.editSawp } }, [
@@ -39112,7 +39309,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", [
-        _vm._v("Firstname:"),
+        _vm._v("First Name:"),
         _c("input", {
           directives: [
             {
@@ -39135,7 +39332,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", [
-        _vm._v("Lastname:"),
+        _vm._v("Last Name:"),
         _c("input", {
           directives: [
             {
@@ -39189,9 +39386,11 @@ var render = function() {
       _vm._v(" "),
       _c("p", [_vm._v("E-mail: " + _vm._s(_vm.userData.email))]),
       _vm._v(" "),
-      _c("p", [_vm._v("Firstname: " + _vm._s(_vm.userData.firstName))]),
+      _c("p", [_vm._v("First Name: " + _vm._s(_vm.userData.firstName))]),
       _vm._v(" "),
-      _c("p", [_vm._v("Lastname: " + _vm._s(_vm.userData.lastName))])
+      _c("p", [_vm._v("Last Name: " + _vm._s(_vm.userData.lastName))]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Layout: " + _vm._s(_vm.layout))])
     ])
   ])
 }
@@ -53643,6 +53842,114 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/layout.js":
+/*!*******************************************!*\
+  !*** ./resources/js/components/layout.js ***!
+  \*******************************************/
+/*! exports provided: layout */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "layout", function() { return layout; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var layout =
+/*#__PURE__*/
+function () {
+  function layout() {// window.localStorage.setItem("layout", "White");
+
+    _classCallCheck(this, layout);
+  }
+
+  _createClass(layout, [{
+    key: "setLayout",
+    value: function setLayout(layoutName) {
+      window.localStorage.layout = layoutName;
+    }
+  }, {
+    key: "getlayoutName",
+    value: function getlayoutName() {
+      return window.localStorage.getItem("layout") || "White";
+    }
+  }, {
+    key: "getColor",
+    value: function getColor() {
+      var layoutName = this.getlayoutName();
+
+      switch (layoutName) {
+        case "White":
+          document.querySelector('main').setAttribute("style", "background-color: aqua;");
+          document.querySelector('footer').setAttribute("style", "background-color: aquamarine;");
+          return {
+            nav: {
+              backgroundColor: "black"
+            },
+            main: {
+              backgroundColor: "aqua"
+            },
+            footer: {
+              backgroundColor: "aquamarine"
+            }
+          };
+
+        case "Dark":
+          document.querySelector('main').setAttribute("style", "background-color: aquamarine;");
+          document.querySelector('footer').setAttribute("style", "background-color: aquamarine;");
+          return {
+            nav: {
+              backgroundColor: "darkblue"
+            },
+            main: {
+              backgroundColor: "aquamarine"
+            },
+            footer: {
+              backgroundColor: "aquamarine"
+            }
+          };
+
+        case "Green":
+          document.querySelector('main').setAttribute("style", "background-color: green;");
+          document.querySelector('footer').setAttribute("style", "background-color: aquamarine;");
+          return {
+            nav: {
+              backgroundColor: "red"
+            },
+            main: {
+              backgroundColor: "currentColor"
+            },
+            footer: {
+              backgroundColor: "aquamarine"
+            }
+          };
+
+        default:
+          document.querySelector('main').setAttribute("style", "background-color: aqua;");
+          document.querySelector('footer').setAttribute("style", "background-color: aquamarine;");
+          return {
+            nav: {
+              backgroundColor: "red"
+            },
+            main: {
+              backgroundColor: "red"
+            },
+            footer: {
+              backgroundColor: "aquamarine"
+            }
+          };
+      }
+    }
+  }]);
+
+  return layout;
+}();
+
+/***/ }),
+
 /***/ "./resources/js/components/logo/logoWebGL.js":
 /*!***************************************************!*\
   !*** ./resources/js/components/logo/logoWebGL.js ***!
@@ -54499,28 +54806,28 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "monsterImgNameList", function() { return monsterImgNameList; });
 var monsterImgNameList = [{
-  text: 'Luna_57x55_f1v1.png',
-  value: 'Luna_57x55_f1v1.png'
-}, {
-  text: 'NONE.png',
+  text: 'None',
   value: 'NONE.png'
 }, {
-  text: 'OC.svg',
+  text: 'Luna',
+  value: 'Luna_57x55_f1v1.png'
+}, {
+  text: 'Pony',
   value: 'OC.svg'
 }, {
-  text: 'plussvg.svg',
+  text: 'Plus Of Dead',
   value: 'plussvg.svg'
 }, {
-  text: 'RAGE.png',
+  text: 'RAGE Of Smil',
   value: 'RAGE.png'
 }, {
-  text: 'sketch-1528670047117.png',
+  text: 'What',
   value: 'sketch-1528670047117.png'
 }, {
-  text: 'sketch-1528893149916.png',
+  text: 'Oh noo',
   value: 'sketch-1528893149916.png'
 }, {
-  text: 'zahne.svg',
+  text: 'Let Foot',
   value: 'zahne.svg'
 }];
 

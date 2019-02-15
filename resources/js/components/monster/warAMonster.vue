@@ -14,12 +14,13 @@
                   <p>SpwanWert: {{ monsterA.SpwanWert }}</p>
   </div>
   //////////////////////////////
-    <button v-on:click="war">Lets War</button>
-    <button v-on:click="rest">Rest</button>
-     <div v-for="value in Outputs">
-    {{ value}}
+                <button v-on:click="war">Lets War</button>
+                <button v-on:click="rest">Rest</button>
+                <div v-for="value in Outputs">
+                {{ value}}
   </div>
   //////////////////////////////
+
   <div v-if="monsterB != false">
                 <img v-bind:src="'img/'+ monsterB.imgName" class="rounded float-right w-25" alt="Monster">
                  <p>ID: {{ monsterB.id }} </p>
@@ -34,12 +35,18 @@
 
 
 
+                    <div v-if="monsterAllUser.length != 0">
 
   <div v-for="aMonster in monsterAllUser" class="card-body">
                 <div  v-on:click="monsterB = aMonster">
                     <component :is="monsterNotEdit" :monster="aMonster"></component>
             </div>
         </div>
+                </div>
+
+             <div v-else>
+                      <router-link class="nav-link text-center alert alert-danger get4rem" to="/createAUserMonster">Create your Monster</router-link>
+                </div>
   </div>
   </div>
   </div>
@@ -74,7 +81,7 @@ import CmonsterNotEdit from './monsterNotEdit.vue';
         },
         methods:{
             ramdomSpawn(){
-                
+
                     send('post','/ramdomSpawn', null, (response) =>{
                                             this.monsterA["id"] = response.data.id;
                                             this.monsterA["name"] = response.data.name;
@@ -104,7 +111,11 @@ import CmonsterNotEdit from './monsterNotEdit.vue';
             },
 
             war(){
-
+                if(this.monsterB == false)
+                {
+                    alert('pls pick a Monster');
+                    return;
+                }
 
                if(this.monsterA.Speed >= this.monsterB.Speed)
                 {
@@ -141,7 +152,8 @@ import CmonsterNotEdit from './monsterNotEdit.vue';
 
             },
             rest(){
- this.ramdomSpawn();
+                            this.ramdomSpawn();
+                            this.monsterAllUser = [];
                             this.getAllUserMonster();
                             this.monsterB = false;
                             this.Outputs = [];

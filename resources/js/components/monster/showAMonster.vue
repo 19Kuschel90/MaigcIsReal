@@ -2,10 +2,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card card-default">
-                    <div class="card-header">Show a Monster</div>
+                <div class="card card-default myCardBorder">
+                    <div class="card-header text-center myMonsterName">{{ monster["name"] }}</div>
 
-                    <div class="card-body">
+                    <div class="card-body border-20px border-primary margin-bottom-10px">
 
                         <div v-if="edit">
                             <component :is="monsterEdit" :monster="monster"></component>
@@ -57,7 +57,7 @@ import {send} from './../axiosSend.js';
                                 this.monster["DP"] = response.data.HP;
                                 this.monster["Speed"] = response.data.Speed;
                                 this.monster["SpwanWert"] = response.data.SpwanWert;
-                                
+
                     }// caallback end
                     );
             }

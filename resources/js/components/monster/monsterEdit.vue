@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="text-center">
                  <div>Name:<input v-model="monster['name']"></div>
                           <div>imgName:<input v-model="monster['imgName']"></div>
                           <div>AP:<input v-model="monster['AP']"></div>

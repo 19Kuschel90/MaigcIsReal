@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
     <base href="/">
-    <title>Maigc is real</title>
+    <title>Maigc is real | Monster Battel</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://fonts.googleapis.com/css?family=Mali" rel="stylesheet">
     <link href="{{asset('css/app.css')}}" rel="stylesheet" type="text/css">
@@ -45,15 +45,28 @@
     <router-view class="alert"></router-view>
 </main>
 <footer>
-    <div class="displayNone AddToHomeScreenMTop" id="addToHome">
-        <p class="AddToHomeScreenButton">Add To Your Homescreen!</p>
+
+    <div class="card text-center">
+  <div class="card-header">
+    Featured
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Heiko Kuschel</h5>
+    <div class="displayNone AddToHomeScreenMTop text-center" id="addToHome">
+        <p class="AddToHomeScreenButton text-center">Add To Your Homescreen!</p>
     </div>
+  </div>
+  <div class="card-footer text-muted">
+    <a href="#">impressum</a>
+  </div>
+</div>
 </footer>
     </div>
     <script src='{{ URL::asset("js/Application.js")}}'></script>
     <script src='{{ URL::asset("js/app.js")}}'></script>
     <script src='{{ URL::asset("js/gl-matrix.js")}}'></script>
     <script>
+
         if ('serviceWorker' in navigator) {  
 
             navigator.serviceWorker.register('/sw.js')

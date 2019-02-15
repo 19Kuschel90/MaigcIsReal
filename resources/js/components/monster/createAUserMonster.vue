@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card card-default">
-                    <div class="card-header">Example Component</div>
+                    <div class="card-header">Create your own Monster</div>
 
                     <div class="card-body">
                         <div>
@@ -14,11 +14,11 @@
                                 {{ option.text }}
                             </option>
                             </select>
-                          <div>AP:<input v-model="monster['AP']"></div>
-                          <div>DP:<input v-model="monster['DP']"></div>
-                          <div>HP:<input v-model="monster['HP']"></div>
-                          <div>Speed:<input v-model="monster['Speed']"></div>
-                          <div>SpwanWert:<input v-model="monster['SpwanWert']"></div>
+                          <div>AP:<input v-model="monster['AP']" type="number"></div>
+                          <div>DP:<input v-model="monster['DP']" type="number"></div>
+                          <div>HP:<input v-model="monster['HP']" type="number"></div>
+                          <div>Speed:<input v-model="monster['Speed']" type="number"></div>
+                          <div>SpwanWert:<input v-model="monster['SpwanWert']" type="number"></div>
                         </div>
                         <button v-on:click="create">Create</button>
                     </div>

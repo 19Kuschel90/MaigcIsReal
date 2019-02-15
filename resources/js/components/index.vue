@@ -2,7 +2,13 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+                   <div class="card-body text-center">
+                <p>Welcome,
 
+                  you can expect great <router-link  class="nav-link" to="/warAMonster">War Monster</router-link> battles
+                  To participate in a fight you need to register and <router-link  class="nav-link" to="/createAUserMonster">create your own monster.</router-link>
+                  but you can also  <router-link class="nav-link" to="/createAMonster">Create a Monster</router-link> against the monster button against which all registered users can fight.</p>
+                </div>
                <div v-for="value in monsters">
                 <component :is="showAMonster" :monsterProps="value" :stopRun='stopRun'></component>
                 </div>
@@ -35,6 +41,7 @@ import {send} from './axiosSend.js';
                       this.monsters = response.data;
               } );
                this.myUpdata();
+
           },
     methods:{
 

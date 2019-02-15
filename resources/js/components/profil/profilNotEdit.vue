@@ -4,8 +4,10 @@
             <p>ID: {{userData.id }}</p>
             <p>Name: {{ userData.name }}</p>
             <p>E-mail: {{userData.email }}</p>
-            <p>Firstname: {{userData.firstName }}</p>
-            <p>Lastname: {{userData.lastName }}</p>
+            <p>First Name: {{userData.firstName }}</p>
+            <p>Last Name: {{userData.lastName }}</p>
+            <p>Layout: {{ layout  }}</p>
+
   </div>
   </div>
 </template>
@@ -17,7 +19,7 @@
         },
 
 
-         props: ["userData"],
+         props: ["userData","layout"],
 
     }
 
